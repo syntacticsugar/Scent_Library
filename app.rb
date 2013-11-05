@@ -21,37 +21,43 @@ class Juice
 end
 
 get '/' do
+  erb :index
 end
 
 # view a perfume/juice
 get '/juice/:id' do
   @juice = Juice.get(params[:id])
-  #erb :index
-  "testing: #{@juice.id}, #{@juice.name}"
+  erb :juice
+  #"testing: #{@juice.id}, #{@juice.name}"
 end
 
-get '/add/:id/:brand/:name' do
-  j = Juice.new
-  j.id = params[:id]
-  j.brand = params[:brand]
-  j.name = params[:name]
-  j.completed_at = Time.now
-  j.save
-  "i hope that saved, lol."
+get '/juice/new' do
+  erb :new
 end
 
-get '/add' do
-  j = Juice.new
-  j.id = 10
-  j.brand = 'Jizz'
-  j.name = 'Oralification'
-  j.completed_at = Time.now
-  j.save
-  "saved (I hope)"
+post '/juice/create' do
+  juice = Juice.new(:name => params[:name])
+  if juice.save
+    status 201
+    redirect '/juice/' + juice.id.to_s
+  else
+    status 412
+    redirect '/juices'
+  end
 end
+
+#get '/add/:id/:brand/:name' do
+#  j = Juice.new
+#  j.id = params[:id]
+#  j.brand = params[:brand]
+#  j.name = params[:name]
+#  j.completed_at = Time.now
+#  j.save
+#  "i hope that saved, lol."
+#end
 
 get '/nicky' do
-  "blah blah blah, droned Nicky."
+  "blah blah blah, droned Nicky endlessly on the phone."
 end
 
 DataMapper.auto_upgrade!
