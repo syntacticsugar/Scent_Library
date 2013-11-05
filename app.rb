@@ -32,7 +32,7 @@ post '/juice/create' do
   juice = Juice.new(:name => params[:name])
   if juice.save
     status 201
-    redirect '/juice/' + juice.id.to_s
+    redirect "/juice/#{juice.id}"
   else
     status 412
     redirect '/juices'
