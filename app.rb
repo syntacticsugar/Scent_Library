@@ -24,13 +24,6 @@ get '/' do
   erb :index
 end
 
-# view a perfume/juice
-get '/juice/:id' do
-  @juice = Juice.get(params[:id])
-  erb :juice
-  #"testing: #{@juice.id}, #{@juice.name}"
-end
-
 get '/juice/new' do
   erb :new
 end
@@ -44,6 +37,13 @@ post '/juice/create' do
     status 412
     redirect '/juices'
   end
+end
+
+# view a perfume/juice
+get '/juice/:id' do
+  @juice = Juice.get(params[:id])
+  erb :juice
+  #"testing: #{@juice.id}, #{@juice.name}"
 end
 
 #get '/add/:id/:brand/:name' do
