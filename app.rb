@@ -40,7 +40,8 @@ post '/juice/create' do
 end
 
 # view a perfume/juice
-get '/juice/:id' do
+#get '/juice/:id' do
+get %r{/juice/\d+} do |id|
   @juice = Juice.get(params[:id])
   erb :juice
   #"testing: #{@juice.id}, #{@juice.name}"
