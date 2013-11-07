@@ -29,7 +29,8 @@ get '/juice/new' do
 end
 
 post '/juice/create' do
-  juice = Juice.new(:name => params[:name])
+  juice = Juice.new(:name =>  params[:name],
+                    :brand => params[:brand])
   if juice.save
     status 201
     redirect "/juice/#{juice.id}"
