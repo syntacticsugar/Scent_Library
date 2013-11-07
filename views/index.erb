@@ -1,9 +1,9 @@
-<h2>Flacons:</h2>
+<h4>Flacons:</h4>
 <% unless @juices.empty? %>
 	<ul>
 		<% @juices.each do |juice| %>
 			<li <%= "class=\"used\"" if juice.used %>>
-			<a href="/juice/<%=juice.id%>"><%= juice.brand %> - <%=juice.name %></a>
+			<a href="/juice/<%= juice.id %>"><%= juice.brand %> - <%= juice.name %></a>
 			</li>
 		<% end %>
 	</ul>
