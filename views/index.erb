@@ -1,59 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>PERFUME INVENTORY APP</title>
-		<meta charset=utf-8 />
-		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap-combined.min.css" rel="stylesheet">
-		<link href="main.css" rel="stylesheet">
-		<style media="screen" type-"text/css">
-						body { background: #ededed;
-					 				 font-family: "Lato"; }
-			#wrapper {
-				margin-left: 10%;
-				margin-top: 5%;
-				font: Lato;
-				}
-			a, a:visited {
-			    color: #AF6D1D;
-				    }
-		</style>
-	</head>
-	<body>
-		<div class="container">
-		<h2>my perfume collection:</h2>
-		<p>Saffron is one of the most precious spices in the world, retailing for more than $500 an ounce.</p>
-		
-		<p>It is so expensive because it is an extremely labor-intensive crop. Crocus sativa, or the saffron crocus, flowers in the fall. Each flower has three tiny, threadlike stigmas in the center. These must be removed by hand and carefully toasted to dry. According to “The Cook’s Reference: Herbs and Spices by Jill Norman,” more than 80,000 crocus flowers must be grown, cared for, hand-harvested and processed to make one pound of saffron.</p>
-		
-		<p>This special spice has been grown in the Mediterranean and Asia for millennia. It was formerly used as a red-orange dye as well as a spice. The orange robes of Buddhist monks were once dyed with saffron.</p>
-		<%= yield %>
-		<!--
-		-->
-		<form class="form-inline" role="form">
-		</form>
-		<!--
-		<div class="juice_form">
-<form class="form-inline" role="form">
-  <div class="form-group">
-    <label class="sr-only" for="exampleInputEmail2">name</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
-  </div>
-  <div class="form-group">
-    <label class="sr-only" for="exampleInputPassword2">house</label>
-    <input type="password" class="form-control" id="exampleInputPassword2" placeholder="Password">
-  </div>
-  <div class="checkbox">
-    <label>
-      <input type="checkbox"> Remember me
-    </label>
-  </div>
-  <button type="submit" class="btn btn-default">Sign in</button>
-</form>
-						
-		</div> -->
-
-		<footer><br /><br />
-	</div><!-- ends container-->
-	</body>
-</html>
-
+<h2>Flacons:</h2>
+<% unless @juices.empty? %>
+	<ul>
+		<% @juices.each do |juice| %>
+			<li <%= "class=\"used\"" if juice.used %>>
+			<a href="/juice/<%=juice.id%>"><%= juice.brand %> - <%=juice.name %></a>
+			</li>
+		<% end %>
+	</ul>
+	<% else %>
+		<p>none, for now.</p>
+<% end %>

@@ -17,7 +17,7 @@ class Juice
   property :id,           Serial
   property :brand,        String
   property :name,         String
-  property :completed_at, DateTime
+  property :used, DateTime
 end
 
 get '/' do
@@ -41,10 +41,15 @@ end
 
 # view a perfume/juice
 #get '/juice/:id' do
-get %r{/juice/\d+} do |id|
-  @juice = Juice.get(id)
+get %r{/juice/\d+} do |id| # useful regex
+  @juice = Juice.get(params[:id])
   erb :juice
   #"testing: #{@juice.id}, #{@juice.name}"
+end
+
+get '/juices' do
+  @juices = Juice.all
+  erb :index
 end
 
 #get '/add/:id/:brand/:name' do
