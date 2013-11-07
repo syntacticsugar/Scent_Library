@@ -42,7 +42,7 @@ end
 
 # view a perfume/juice
 #get '/juice/:id' do
-get %r{/juice/(\d)+} do |id| # useful regex
+get %r{\A/juice/(\d+)\Z} do |id| # useful regex
   @juice = Juice.get(id.to_i)
   erb :juice
   #"testing: #{@juice.id}, #{@juice.name}"
