@@ -14,10 +14,10 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/developm
 class Juice
   include DataMapper::Resource
 
-  property :id,           Serial
-  property :brand,        String
-  property :name,         String
-  property :used, DateTime
+  property :id,       Serial
+  property :brand,    String, :required => true
+  property :name,     String, :required => true
+  property :used,     DateTime
 end
 
 get '/' do
@@ -48,10 +48,40 @@ get %r{\A/juice/(\d+)\Z} do |id| # useful regex
   #"testing: #{@juice.id}, #{@juice.name}"
 end
 
+get '/juice/:id/edit' do
+  @juice = Juice.get(params[:id])
+  erb :edit
+end
+
+get '/juice/:id/delete' do
+  @juice = Juice.get(params[:id])
+  erb :delete
+end
+
+delete '/juice/:id' do
+  Juice.get(params[:id]).destroy
+  redirect '/juices'
+end
+
+put '/juice/:id' do
+  juice = Juice.get(params[:id])
+  juice.used = params[:used] ? Time.now : nil
+  juice.name = (params[:name])
+  juice.brand = (params[:brand])
+  if juice.save
+    status 201
+    redirect '/juice/' + juice.id.to_s
+  else
+    status 412
+    redirect '/juices/'
+  end
+end
+
 get '/juices' do
   @juices = Juice.all
   erb :index
 end
+
 
 #get '/add/:id/:brand/:name' do
 #  j = Juice.new
