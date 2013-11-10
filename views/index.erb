@@ -7,11 +7,9 @@
 <% unless @juices.empty? %>
 	<ul class="flasks">
 		<% @juices.each do |juice| %>
-			<li <%= "class=\"used\"" if juice.used %>>
 			<!-- NOTE: using data- style attributes will not work with XHTML 1.1 -->
-			<div class="flask" data-name="<%= juice.name %>" data-brand="<%= juice.brand %>">
+			<li class="flask" data-name="<%= juice.name %>" data-house="<%= juice.brand %>">
 			<a href="/juice/<%= juice.id %>"><%= juice.brand %> - <%= juice.name %></a>
-			</div>
 			</li>
 		<% end %>
 	</ul>
