@@ -1,9 +1,17 @@
+<form action="/juice/create" method="POST">
+	<input type="text" name="name" id="name" placeholder="name of perfume">
+	<input type="text" name="brand" id="brand" placeholder="manufacturer">
+	<input type="submit" value="add perfume"/>
+</form>
 <h4>Flacons:</h4>
 <% unless @juices.empty? %>
-	<ul>
+	<ul class="flasks">
 		<% @juices.each do |juice| %>
 			<li <%= "class=\"used\"" if juice.used %>>
+			<!-- NOTE: using data- style attributes will not work with XHTML 1.1 -->
+			<div class="flask" data-name="<%= juice.name %>" data-brand="<%= juice.brand %>">
 			<a href="/juice/<%= juice.id %>"><%= juice.brand %> - <%= juice.name %></a>
+			</div>
 			</li>
 		<% end %>
 	</ul>

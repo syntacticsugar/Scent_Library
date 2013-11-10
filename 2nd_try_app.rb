@@ -1,37 +1,75 @@
-%w( sinatra slim data_mapper dm-sqlite-adapter ).each { |gem| require gem }
+require 'rubygems'
+require 'sinatra'
+require 'data_mapper'
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/lettuce.db")
+DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 
-class Juice
+class Task
   include DataMapper::Resource
-
-  property :id,              Serial
-  property :name,            String
-  property :brand,           String
-  property :completed_at,    DateTime
-
+  property :id,           Serial
+  property :name,         String
+  property :completed_at, DateTime
 end
 
-get '/juice/:id' do
-  @juice = Juice.get(params[:id])
-  erb :juice
+# list all tasks
+get '/tasks' do
+  @tasks = Task.all
+  erb :index
 end
 
-get '/juice/new' do
+# show task
+get '/task/:id' do
+  @task = Task.get(params[:id])
+  erb :task
+end
+
+# new task
+get '/task/new' do
   erb :new
 end
 
-# create new juice
-post '/juice/create' do
-  juice = Juice.new(:name => params[:name])
-  if juice.save
+# create new task   
+post '/task/create' do
+  task = Task.new(:name => params[:name])
+  if task.save
     status 201
-    redirect '/juice/'+juice.id.to_s
+    redirect '/task/'+task.id.to_s   
   else
     status 412
-    redirect '/juices'
+    redirect '/tasks'   
   end
 end
 
-DataMapper.auto_upgrade!
+# edit task
+get '/task/:id/edit' do
+  @task = Task.get(params[:id])
+  erb :edit
+end
 
+# update task
+put '/task/:id' do
+  task = Task.get(params[:id])
+  task.completed_at = params[:completed] ?  Time.now : nil
+  task.name = (params[:name])
+  if task.save
+    status 201
+    redirect '/task/'+task.id.to_s
+  else
+    status 412
+    redirect '/tasks'   
+  end
+end
+
+# delete confirmation
+get '/task/:id/delete' do
+  @task = Task.get(params[:id])
+  erb :delete
+end
+
+# delete task
+delete '/task/:id' do
+  Task.get(params[:id]).destroy
+  redirect '/tasks'  
+end
+
+DataMapper.auto_upgrade!

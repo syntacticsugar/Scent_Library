@@ -21,11 +21,8 @@ class Juice
 end
 
 get '/' do
+  @juices = Juice.all
   erb :index
-end
-
-get '/juice/new' do
-  erb :new
 end
 
 post '/juice/create' do
@@ -44,6 +41,7 @@ end
 #get '/juice/:id' do
 get %r{\A/juice/(\d+)\Z} do |id| # useful regex
   @juice = Juice.get(id.to_i)
+#  erb :edit
   erb :juice
   #"testing: #{@juice.id}, #{@juice.name}"
 end
@@ -51,16 +49,6 @@ end
 get '/juice/:id/edit' do
   @juice = Juice.get(params[:id])
   erb :edit
-end
-
-get '/juice/:id/delete' do
-  @juice = Juice.get(params[:id])
-  erb :delete
-end
-
-delete '/juice/:id' do
-  Juice.get(params[:id]).destroy
-  redirect '/juices'
 end
 
 put '/juice/:id' do
@@ -82,6 +70,19 @@ get '/juices' do
   erb :index
 end
 
+get '/juice/:id/delete' do
+  @juice = Juice.get(params[:id])
+  erb :delete
+end
+
+delete '/juice/:id' do
+  Juice.get(params[:id]).destroy
+  redirect '/juices'
+end
+
+
+
+
 
 #get '/add/:id/:brand/:name' do
 #  j = Juice.new
@@ -97,8 +98,15 @@ get '/nicky' do
   "blah blah blah, droned Nicky endlessly on the phone."
 end
 
-DataMapper.auto_upgrade!
-
 not_found do
   halt 404, "whoa there big thunder! page not found, sorrrrri."
 end
+
+DataMapper.auto_upgrade!
+
+# NEXT
+# -add menu/template
+#
+# EVENTUALLY:
+# -add custom sort labels
+# -allow flacons to be sorted by manufacturer, date added
