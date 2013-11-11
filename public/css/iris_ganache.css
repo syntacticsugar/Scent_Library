@@ -1,9 +1,16 @@
-.menu {
+ul.top-nav {
+}
+
+ul.top-nav li {
+  display:inline;
+  margin: 0 10px;
+}
+
+ul.sort-menu {
+  list-style-type: none;
+}
+ul.sort-menu li {
   display: inline;
-  margin: 0 5px 0 5px;
+  margin: 0 5px;
+  font-size: 10px;
 }
-
-ul {
-  list-style-type: circle;
-}
-

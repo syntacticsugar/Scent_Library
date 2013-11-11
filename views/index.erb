@@ -4,6 +4,12 @@
 	<input type="submit" value="add perfume"/>
 </form>
 <h4>Flacons:</h4>
+<ul class="sort-menu">
+	<li><a id="sort-by-house" class="testclick"  href=#>view alphabetical</a> (jQuery)</li>
+	<li><a href=# onclick="sortFlasksByHouse();">view alphabetical</a> (javascript)</li>
+	<li>view 2</li>
+	<li>view 3</li>
+</ul>
 <% unless @juices.empty? %>
 	<ul class="flasks">
 		<% @juices.each do |juice| %>

@@ -1,3 +1,14 @@
-<h2>* * * * * * * *</h2>
-name: <strong><%= @juice.name.upcase %></strong> from brand: <strong><%= @juice.brand.upcase %></strong> (id: <%= @juice.id %>)
-<p>(from juice.erb)</p>
+<strong><%= @juice.brand.upcase %></strong> - <strong><%= @juice.name.upcase %></strong> (id: <%= @juice.id %>)
+
+<form action="/juice/<%= @juice.id %>" method="post">
+<input name="_method" type="hidden" value="put" />
+<input type="text" name="brand" id="brand" value="<%= @juice.brand %>">
+<input type="text" name="name" id="name" value="<%= @juice.name %>">
+<input id="juice_submit" name="commit" type="submit" value="Update" />
+</form>
+
+<form action="/juice/<%= @juice.id %>" method="post">
+<input type="hidden" name="_method" value="delete" />
+or, permanently <input type="submit" value="delete"> this item.
+</form>
+

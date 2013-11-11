@@ -110,3 +110,4 @@ DataMapper.auto_upgrade!
 # EVENTUALLY:
 # -add custom sort labels
 # -allow flacons to be sorted by manufacturer, date added
+# -want vs really want vs kind of want
