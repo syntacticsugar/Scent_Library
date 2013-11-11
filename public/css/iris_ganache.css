@@ -1,9 +1,18 @@
+#logo {
+  width: 131px;
+  height: 62px;
+  border: 0;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 ul.top-nav {
 }
 
 ul.top-nav li {
   display:inline;
-  margin: 0 10px;
+  margin: 0 10px 0 0;
 }
 
 ul.sort-menu {
@@ -12,5 +21,13 @@ ul.sort-menu {
 ul.sort-menu li {
   display: inline;
   margin: 0 5px;
-  font-size: 10px;
+  font-size: 9px;
+}
+
+.flasks {
+  font-size: 12px;
+}
+.flask {
+  list-style-type: circle;
+  line-height: 16px;
 }
