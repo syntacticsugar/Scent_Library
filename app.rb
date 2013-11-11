@@ -22,7 +22,19 @@ class Juice
   property :size,     String
   property :formula,     String
 
+#  belongs_to :person
 end
+
+#class Person
+#  include DataMapper::Resource
+#
+#  property :id, Serial
+#  property :username, String
+#  property :email, String
+#  property :created_at, DateTime
+#
+#  has n, :juices
+#end
 
 get '/' do
   @juices = Juice.all
