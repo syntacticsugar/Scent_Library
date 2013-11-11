@@ -18,6 +18,10 @@ class Juice
   property :brand,    String, :required => true
   property :name,     String, :required => true
   property :used,     DateTime
+  property :added,     DateTime
+  property :size,     String
+  property :formula,     String
+
 end
 
 get '/' do
@@ -30,7 +34,7 @@ post '/juice/create' do
                     :brand => params[:brand])
   if juice.save
     status 201
-    redirect "/juice/#{juice.id}"
+    redirect "/"
   else
     status 412
     redirect '/juices'

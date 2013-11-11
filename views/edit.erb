@@ -3,7 +3,7 @@
 <input type="text" name="brand" id="brand" value="<%= @juice.brand %>">
 <input type="text" name="name" id="name" value="<%= @juice.name %>">
  <input id="used" name="used" type="checkbox" value="finished" <%= @juice.used ? "checked" : "" %>/>
-<input id="juice_submit" name="commit" type="submit" value="Update" />
+<input class="button" id="juice_submit" name="commit" type="submit" value="Update" />
 </form>
 
 <a href="/juice/<%= @juice.id %>/delete">Delete this item</a>

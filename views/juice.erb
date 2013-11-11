@@ -1,14 +1,15 @@
-<strong><%= @juice.brand.upcase %></strong> - <strong><%= @juice.name.upcase %></strong> (id: <%= @juice.id %>)
+<!--<strong><%= @juice.brand.upcase %></strong> - <strong><%= @juice.name.upcase %></strong> (id: <%= @juice.id %>) -->
 
 <form action="/juice/<%= @juice.id %>" method="post">
 <input name="_method" type="hidden" value="put" />
 <input type="text" name="brand" id="brand" value="<%= @juice.brand %>">
 <input type="text" name="name" id="name" value="<%= @juice.name %>">
-<input id="juice_submit" name="commit" type="submit" value="Update" />
+<input class="button" id="juice_submit" name="commit" type="submit" value="update" />
 </form>
 
 <form action="/juice/<%= @juice.id %>" method="post">
+				<br />
 <input type="hidden" name="_method" value="delete" />
-or, permanently <input type="submit" value="delete"> this item.
+or, permanently <input class="button" type="submit" value="delete"> this item.
 </form>
 

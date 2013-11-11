@@ -1,13 +1,13 @@
 <form action="/juice/create" method="POST">
 	<input type="text" name="name" id="name" placeholder="name of perfume">
 	<input type="text" name="brand" id="brand" placeholder="manufacturer">
-	<input type="submit" value="add perfume"/>
+	<input class="button" type="submit" value="add perfume"/>
 </form>
 <ul class="sort-menu">
 	<li>sort by: &nbsp;&nbsp; &nbsp;&nbsp;  <a id="sort-by-house" class="testclick"  href=#>alphabet</a> (jQuery)</li>
 	<li><a href=# onclick="sortFlasksByHouse();">alphabet</a> (javascript)</li>
 	<li>date added</li>
-	<li>view 3</li>
+	<li>formula</li>
 </ul>
 <% unless @juices.empty? %>
 	<ul class="flasks">
