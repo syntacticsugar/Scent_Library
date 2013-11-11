@@ -1,3 +1,12 @@
+var image = document.getElementById('logo');
+
+image.addEventListener('mouseover', function() { 
+  image.setAttribute('style','-webkit-filter: brightness(1.05)'); 
+}, false);
+
+image.addEventListener('mouseout', function() { 
+  image.setAttribute('style','-webkit-filter: brightness(1.0)'); 
+}, false);
 
 function sortFlasksByHouse() {
   console.log("sorting list");

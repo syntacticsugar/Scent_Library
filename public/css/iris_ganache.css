@@ -2,6 +2,7 @@
   width: 131px;
   height: 62px;
   border: 0;
+  margin-top: 20px;
   margin-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
@@ -12,16 +13,17 @@ ul.top-nav {
 
 ul.top-nav li {
   display:inline;
-  margin: 0 10px 0 0;
+  margin: 0 10px 0 5px;
 }
 
 ul.sort-menu {
+  margin-top: 20px;
   list-style-type: none;
 }
 ul.sort-menu li {
   display: inline;
   margin: 0 5px;
-  font-size: 9px;
+  font-size: 10px;
 }
 
 .flasks {
@@ -31,3 +33,87 @@ ul.sort-menu li {
   list-style-type: circle;
   line-height: 16px;
 }
+
+form {
+  margin: 0;
+}
+
+input[type="text"], textarea {
+  background-color : #f2f2f2;
+}
+
+input {
+}
+
+input[type=text]{
+    background: linear-gradient(to bottom, #f7f7f8 0%,#ffffff 100%);
+    border: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
+    transition: all 0.2s linear;
+    font-size: 13px;
+    color: #222222;
+    position: relative;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+    &::-webkit-input-placeholder {
+       color: #999999;
+    }
+
+    &:-moz-placeholder {
+       color: #999999;
+    }
+
+    &:focus{
+        box-shadow: 0 1px 0 #2392F3 inset, 0 -1px 0 #2392F3 inset, 1px 0 0 #2392F3 inset, -1px 0 0 #2392F3 inset, 0 0 4px rgba(35,146,243,0.5);
+        outline: none;
+        background: #FFF;
+    }
+}
+
+.flasks li {
+  padding: 1px;
+  font-family: "Proxima Nova", 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+.flasks a:link,
+.flasks a:visited{
+  line-height: 1.4;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #472f0f;
+  text-shadow: 0 1px 1px #fff;
+  background: #f4f4f0;
+  border-top: 1px solid #f4f4f0;
+  border-right: 1px solid #f6f6f2;
+  border-bottom: 1px solid #bdbdb9;
+  border-left: 1px solid #f6f6f2;
+  padding: 0 3px 1px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.flasks a:focus,
+.flasks a:hover{
+  color: #9d0d09;
+  text-shadow: 0 1px 1px #fff;
+  background: #fff;
+  text-shadow: 0 1px 1px #fff;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #bdbdb9;
+  border-left: 1px solid #fff;
+}
+.flasks a:active{
+  background: #e4e4e0;
+  text-shadow: 0 1px 1px #fff;
+  border-top: 1px solid #9d9d99;
+  border-right: 1px solid #f4f4f0;
+  border-bottom: 1px solid #fdfdf9;
+  border-left: 1px solid #f4f4f0;
+  -moz-box-shadow:inset 0 1px 3px #cdcdc9;
+  -webkit-box-shadow:inset 0 1px 3px #cdcdc9;
+  box-shadow:inset 0 1px 3px #cdcdc9;
+  padding: 1px 3px 0;
+}
+
