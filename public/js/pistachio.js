@@ -4,15 +4,13 @@ function sortFlasksByHouse() {
   $(".flasks li").sort(sortByHouse).appendTo(".flasks");
 }
 
-function sortByHouse(a,b) {
+function sortByHouse(a, b) {
+  // uses `localCompare` to get region specific string sorting
   console.log("comparing elements");
-  if (a.getAttribute('data-house') < b.getAttribute('data-house')) {
-    console.log("a is less");
-    return -1;
-  } else {
-    console.log("b is less");
-    return 1;
-  }
+  var aval, bval;
+  aval = a.getAttribute('data-house');
+  bval = b.getAttribute('data-house');
+  return aval.localeCompare(bval);
 }
 
 $(".testclick").click(sortFlasksByHouse);
