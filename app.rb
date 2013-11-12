@@ -14,27 +14,28 @@ DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/developm
 class Juice
   include DataMapper::Resource
 
-  property :id,       Serial
-  property :brand,    String, :required => true
-  property :name,     String, :required => true
-  property :used,     DateTime
-  property :added,     DateTime
-  property :size,     String
-  property :formula,     String
+  property :id,           Serial
+  property :brand,        String, :required => true
+  property :name,         String, :required => true
+  property :used,         DateTime
+  property :added,        DateTime
+  property :size,         String
+  property :formula,      String
+  property :description,  String
 
-#  belongs_to :person
+  belongs_to :person
 end
 
-#class Person
-#  include DataMapper::Resource
-#
-#  property :id, Serial
-#  property :username, String
-#  property :email, String
-#  property :created_at, DateTime
-#
-#  has n, :juices
-#end
+class Person
+  include DataMapper::Resource
+
+  property :id, Serial
+  property :username, String
+  property :email, String
+  property :created_at, DateTime
+
+  has n, :juices
+end
 
 get '/' do
   @juices = Juice.all
@@ -74,7 +75,7 @@ put '/juice/:id' do
   juice.brand = (params[:brand])
   if juice.save
     status 201
-    redirect '/juice/' + juice.id.to_s
+    redirect '/'
   else
     status 412
     redirect '/juices/'
@@ -96,7 +97,9 @@ delete '/juice/:id' do
   redirect '/juices'
 end
 
-
+get '/wishlist' do
+  erb :wishlist
+end
 
 
 

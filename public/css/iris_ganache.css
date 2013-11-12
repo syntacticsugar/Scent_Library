@@ -19,7 +19,7 @@ ul.top-nav li {
 }
 
 ul.sort-menu {
-  background: #e5e5e5;
+  background: #d4d4d4;
   width: 100%;
   margin-top: 20px;
   list-style-type: none;
@@ -48,7 +48,6 @@ input[type="text"], textarea {
   font-family: georgia;
   letter-spacing: 0.02em;
   font-style: italic;
-  color: navy;
 }
 
 input {
