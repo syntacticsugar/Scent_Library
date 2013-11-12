@@ -37,6 +37,36 @@ class Person
   has n, :juices
 end
 
+class Wishlist # as in, Wishlist Item
+  include DataMapper::Resource
+
+  property :id,           Serial
+  property :brand,        String, :required => true
+  property :name,         String, :required => true
+  property :used,         DateTime
+  property :added,        DateTime
+  property :size,         String
+  property :formula,      String
+  property :description,  String
+
+  belongs_to :person
+end
+
+class Purchaselist # as in, Purchaselist Item
+  include DataMapper::Resource
+
+  property :id,           Serial
+  property :brand,        String, :required => true
+  property :name,         String, :required => true
+  property :used,         DateTime
+  property :added,        DateTime
+  property :size,         String
+  property :formula,      String
+  property :description,  String
+
+  belongs_to :person
+end
+
 get '/' do
   @juices = Juice.all
   erb :index
