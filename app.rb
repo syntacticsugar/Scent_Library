@@ -23,7 +23,7 @@ class Juice
   property :formula,      String
   property :description,  String
 
-  belongs_to :person
+  has n, :person
 end
 
 class Person
@@ -37,35 +37,20 @@ class Person
   has n, :juices
 end
 
-class Wishlist # as in, Wishlist Item
+class Own
   include DataMapper::Resource
 
-  property :id,           Serial
-  property :brand,        String, :required => true
-  property :name,         String, :required => true
-  property :used,         DateTime
-  property :added,        DateTime
-  property :size,         String
-  property :formula,      String
-  property :description,  String
-
-  belongs_to :person
+  belongs_to :Person, :key => true
+  belongs_to :Juice, :key => true
 end
 
-class Purchaselist # as in, Purchaselist Item
+class Wish
   include DataMapper::Resource
 
-  property :id,           Serial
-  property :brand,        String, :required => true
-  property :name,         String, :required => true
-  property :used,         DateTime
-  property :added,        DateTime
-  property :size,         String
-  property :formula,      String
-  property :description,  String
-
-  belongs_to :person
+  belongs_to :Person, :key => true
+  belongs_to :Juice, :key => true
 end
+
 
 get '/' do
   @juices = Juice.all
