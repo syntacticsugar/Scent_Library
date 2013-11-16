@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 gem 'sinatra'
 gem 'slim'
+gem 'pg', :group => :production
 gem 'data_mapper'
 gem 'omniauth'
 gem 'omniauth-twitter'
