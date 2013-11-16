@@ -44,13 +44,6 @@ class Person
   has n, :juices, :through => Resource
 end
 
-class Own
-  include DataMapper::Resource
-
-  belongs_to :Person, :key => true
-  belongs_to :Juice, :key => true
-end
-
 class Wish
   include DataMapper::Resource
 
