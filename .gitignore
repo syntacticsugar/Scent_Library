@@ -1,4 +1,5 @@
 *.swp
 .DS_Store
 test.db
+keys.rb
 

@@ -1,0 +1,10 @@
+			-if current_user
+				Bonjour, #{@current_user.username.to_s}!
+				%a{:href => '/sign_out'} Leave.
+			-else
+				hook in via
+				%a{:href => '/auth/twitter'}twitter
+				or
+				%a{:href => '/auth/facebook'}facebook
+				or
+				%a{:href => '/auth/github'}github

@@ -2,6 +2,11 @@ require 'sinatra'
 require 'slim'
 require 'data_mapper'
 require 'dm-sqlite-adapter'
+require 'omniauth'
+require 'omniauth-twitter'
+require 'omniauth-github'
+require 'omniauth-facebook'
+require './keys.rb'
 
 #require 'sqlite3'
 
@@ -30,6 +35,7 @@ class Person
   include DataMapper::Resource
 
   property :id, Serial
+  property :uid, String
   property :username, String
   property :email, String
   property :created_at, DateTime
@@ -51,11 +57,43 @@ class Wish
   belongs_to :Juice, :key => true
 end
 
+enable :sessions
+
+helpers do
+  def current_user
+    @current_user ||= Person.get(session[:user_id]) if session[:user_id]
+  end
+end
 
 get '/' do
   @juices = Juice.all
   erb :index
 end
+
+#get '/auth/:name/:callback' do
+#  auth = request.env["omniauth.auth"]
+#  user = Person.first_or_create({ :uid => auth["uid"]},{
+#    :uid => auth["uid"],
+#    :created_at => Time.new })
+#    session[:user_id] = user.id
+#  "hello"
+#end
+
+# any of the following routes should work to sign the user in: 
+#   /sign_up, /signup, /sign_in, /signin, /log_in, /login
+["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
+  get path do
+    redirect '/auth/twitter' # how do i toggle this for github & facebook?
+  end
+end
+
+["/sign_out/?", "/signout/?", "/log_out/?", "/logout/?"].each do |path|
+  get path do
+    session[:user_id] = nil
+    redirect '/'
+  end
+end
+
 
 post '/juice/create' do
   juice = Juice.new(:name =>  params[:name],
@@ -67,7 +105,51 @@ post '/juice/create' do
     status 412
     redirect '/juices'
   end
+
+#  validation_passes = [
+#    :username, :activity, :location
+#  ].all? { |k| params[k] and !params[k].strip.empty? }
+#
+#  # preprocess.  store visitor's username in cookie.
+#  session["visitor_name"] = params[:username]
+#  # { "visitor_name" => "Goldie Hawn" }
+#  session["visitor_location"] = params[:location]
+
+
 end
+
+get '/user' do
+  @person = current_user
+
+  if current_user
+    # The following line just tests to see that it's working.
+    #   If you've logged in your first user, '/' should load: "1 ... 1";
+    #   You can then remove the following line, start using view templates, etc.
+    current_user.id.to_s + " ... " + session[:user_id].to_s 
+  else
+    '<a href="/sign_up">create an account</a> or <a href="/sign_in">sign in with Twitter</a>'
+    # if you replace the above line with the following line, 
+    #   the user gets signed in automatically. Could be useful. 
+    #   Could also break user expectations.
+    # redirect '/auth/twitter'
+  end
+
+end
+
+
+get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
+  auth = request.env["omniauth.auth"]
+  user = Person.first_or_create({ :uid => auth["uid"]}, { # what about the 'create' part?
+#    :provider => auth["provider"],   # alan says WHY DID YOU DO THIS
+    :uid => auth["uid"],
+    :username => auth["info"]["nickname"],
+    :created_at => Time.now })
+  session[:user_id] = user.id
+
+  "hello #{user.username}. Welcome to Neiman Marcus."
+end
+
+
 
 # view a perfume/juice
 #get '/juice/:id' do
@@ -110,10 +192,6 @@ end
 delete '/juice/:id' do
   Juice.get(params[:id]).destroy
   redirect '/juices'
-end
-
-get '/wishlist' do
-  erb :wishlist
 end
 
 
