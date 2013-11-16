@@ -7,6 +7,7 @@ require 'omniauth-twitter'
 require 'omniauth-github'
 require 'omniauth-facebook'
 require './keys.rb'
+require 'pry'
 
 #require 'sqlite3'
 
@@ -28,7 +29,7 @@ class Juice
   property :formula,      String
   property :description,  String
 
-  has n, :person
+  has n, :persons, :through => Resource
 end
 
 class Person
@@ -40,7 +41,7 @@ class Person
   property :email, String
   property :created_at, DateTime
 
-  has n, :juices
+  has n, :juices, :through => Resource
 end
 
 class Own
