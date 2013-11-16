@@ -58,6 +58,7 @@ class Wish
 end
 
 enable :sessions
+enable :inline_templates
 
 helpers do
   def current_user
@@ -127,7 +128,7 @@ get '/user' do
     #   You can then remove the following line, start using view templates, etc.
     current_user.id.to_s + " ... " + session[:user_id].to_s 
   else
-    '<a href="/sign_up">create an account</a> or <a href="/sign_in">sign in with Twitter</a>'
+    'Greetings. <a href="/sign_in">Sign in with Twitter</a>'
     # if you replace the above line with the following line, 
     #   the user gets signed in automatically. Could be useful. 
     #   Could also break user expectations.
@@ -208,6 +209,10 @@ end
 
 get '/nicky' do
   "blah blah blah, droned Nicky endlessly on the phone."
+end
+
+get '/ben/:victim' do
+  "Ben has been eating #{params[:victim]} since #{Time.now}. What a lunatic!"
 end
 
 not_found do

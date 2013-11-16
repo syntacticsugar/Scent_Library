@@ -8,6 +8,13 @@
   margin-right: auto;
 }
 
+#login {
+  float: right;
+  margin-top: 10px;
+  font-size: 12px;
+  margin-right: 40%;
+}
+
 ul.top-nav {
 }
 
