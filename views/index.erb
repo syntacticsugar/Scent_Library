@@ -15,6 +15,9 @@
 			<!-- NOTE: using data- style attributes will not work with XHTML 1.1 -->
 			<li class="flask" data-name="<%= juice.name %>" data-house="<%= juice.brand %>">
 			<a href="/juice/<%= juice.id %>"><%= juice.brand %> - <%= juice.name %></a>
+      <% unless @is_wishlist %>
+        <a href="/wish/<%= juice.id %>">add to wishlist</a>
+      <% end %>
 			</li>
 		<% end %>
 	</ul>

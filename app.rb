@@ -42,13 +42,14 @@ class Person
   property :created_at, DateTime
 
   has n, :juices, :through => Resource
+  has n, :wishes
 end
 
 class Wish
   include DataMapper::Resource
 
-  belongs_to :Person, :key => true
-  belongs_to :Juice, :key => true
+  belongs_to :person, :key => true
+  belongs_to :juice, :key => true
 end
 
 enable :sessions
@@ -119,6 +120,20 @@ post '/juice/create' do
 #  session["visitor_location"] = params[:location]
 
 
+end
+
+get '/wish/:juice_id' do |juice_id|
+  juice = Juice.get(juice_id)
+  wish = Wish.create(juice: juice, person: current_user) if current_user
+  redirect '/wishlist'
+end
+
+get '/wishlist' do
+  @juices = if current_user
+              current_user.wishes.map(&:juice)
+            end
+  @is_wishlist = true
+  erb :index
 end
 
 get '/user' do
