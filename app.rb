@@ -1,7 +1,7 @@
 require 'sinatra'
 require 'slim'
 require 'data_mapper'
-require 'dm-sqlite-adapter'
+#require 'dm-sqlite-adapter'
 require 'omniauth'
 require 'omniauth-twitter'
 require 'omniauth-github'
@@ -197,15 +197,14 @@ end
 
 
 
-#get '/add/:id/:brand/:name' do
-#  j = Juice.new
-#  j.id = params[:id]
-#  j.brand = params[:brand]
-#  j.name = params[:name]
-#  j.completed_at = Time.now
-#  j.save
-#  "i hope that saved, lol."
-#end
+get '/add/:id/:brand/:name' do
+  j = Juice.new
+  j.id = params[:id]
+  j.brand = params[:brand]
+  j.name = params[:name]
+  j.save
+  "i hope that saved, lol."
+end
 
 get '/nicky' do
   "blah blah blah, droned Nicky endlessly on the phone."
