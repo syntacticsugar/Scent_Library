@@ -61,7 +61,11 @@ helpers do
 end
 
 get '/' do
-  @juices = Juice.all
+  @juices = if current_user
+              current_user.juices
+            else
+              Juice.all
+            end
   erb :index
 end
 
@@ -93,6 +97,10 @@ end
 post '/juice/create' do
   juice = Juice.new(:name =>  params[:name],
                     :brand => params[:brand])
+  if current_user
+    juice.persons << current_user
+  end
+
   if juice.save
     status 201
     redirect "/"
