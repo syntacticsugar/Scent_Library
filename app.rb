@@ -14,7 +14,7 @@ require 'pry'
 #db = SQLite3::Database.new( "development.db" )
 #rows = db.execute( "select * from test" )
 
-DataMapper.setup(:default, ENV['DATABASE_URL'] || "sqlite3://#{Dir.pwd}/development.db")
+DataMapper.setup(:default, ENV['HEROKU_POSTGRESQL_COPPER_URL'] || "sqlite3://#{Dir.pwd}/development.db")
 # DataMapper.setup(:default, 'sqlite:recall.db')
 
 class Juice
