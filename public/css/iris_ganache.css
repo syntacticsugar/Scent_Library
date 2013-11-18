@@ -13,6 +13,17 @@
   margin-top: 10px;
   font-size: 12px;
   margin-right: 40%;
+  line-height: 14px;
+}
+
+.sign-out {
+  margin-left: 75px;
+  color: #a7a7a7;
+  font-size: 10px;
+}
+
+.sign-out :hover{
+  color: black;
 }
 
 ul.top-nav {
@@ -23,6 +34,13 @@ ul.top-nav li {
   font-size: 12px;
   display:inline;
   margin: 0 10px 0 5px;
+  padding: 4px;
+}
+
+ul.top-nav li:hover {
+  background: #ededed;
+  color: #bf7821;
+  text-decoration: none;
 }
 
 ul.sort-menu {

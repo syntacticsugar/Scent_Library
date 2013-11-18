@@ -164,7 +164,7 @@ get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
     :created_at => Time.now })
   session[:user_id] = user.id
 
-  "hello #{user.username}. Welcome to Neiman Marcus."
+  redirect '/'
 end
 
 
