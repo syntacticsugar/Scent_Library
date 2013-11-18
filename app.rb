@@ -108,11 +108,13 @@ get '/wish/:juice_id' do |juice_id|
 end
 
 get '/wishlist' do
-  @juices = if current_user
-              current_user.wishes.map(&:juice)
-            end
-  @is_wishlist = true
-  erb :index
+  if current_user
+    @juices = current_user.wishes.map(&:juice)
+    @is_wishlist = true
+    erb :index
+  else
+    redirect '/user'
+  end
 end
 
 get '/user' do
