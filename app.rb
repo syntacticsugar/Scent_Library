@@ -1,56 +1,14 @@
 require 'sinatra'
 require 'slim'
-require 'data_mapper'
-#require 'dm-sqlite-adapter'
+
 require 'omniauth'
 require 'omniauth-twitter'
 require 'omniauth-github'
 require 'omniauth-facebook'
-require './keys.rb'
 require 'pry'
 
-#require 'sqlite3'
-
-#db = SQLite3::Database.new( "development.db" )
-#rows = db.execute( "select * from test" )
-
-DataMapper.setup(:default, ENV['HEROKU_POSTGRESQL_COPPER_URL'] || "sqlite3://#{Dir.pwd}/development.db")
-# DataMapper.setup(:default, 'sqlite:recall.db')
-
-class Juice
-  include DataMapper::Resource
-
-  property :id,           Serial
-  property :brand,        String, :required => true
-  property :name,         String, :required => true
-  property :used,         DateTime
-  property :added,        DateTime
-  property :size,         String
-  property :formula,      String
-  property :description,  String
-
-  has n, :persons, :through => Resource
-end
-
-class Person
-  include DataMapper::Resource
-
-  property :id, Serial
-  property :uid, String
-  property :username, String
-  property :email, String
-  property :created_at, DateTime
-
-  has n, :juices, :through => Resource
-  has n, :wishes
-end
-
-class Wish
-  include DataMapper::Resource
-
-  belongs_to :person, :key => true
-  belongs_to :juice, :key => true
-end
+require_relative 'keys.rb'
+require_relative 'model.rb'
 
 enable :sessions
 enable :inline_templates
@@ -226,8 +184,6 @@ end
 not_found do
   halt 404, "whoa there big thunder! page not found, sorrrrri."
 end
-
-DataMapper.auto_upgrade!
 
 # NEXT
 # -add menu/template
