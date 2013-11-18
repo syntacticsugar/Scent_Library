@@ -70,6 +70,15 @@ get '/' do
   erb :index
 end
 
+get '/wishlist' do
+  @juices = if current_user
+              current_user.juices(:order => [ :brand.asc, :name.asc ])
+            else
+              Juice.all(:order => [ :brand.asc, :name.asc ])
+            end
+  erb :index
+end
+
 # any of the following routes should work to sign the user in: 
 #   /sign_up, /signup, /sign_in, /signin, /log_in, /login
 ["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
@@ -97,7 +106,7 @@ post '/juice/create' do
     redirect "/"
   else
     status 412
-    redirect '/juices'
+    redirect '/'
   end
 end
 
@@ -107,14 +116,27 @@ get '/wish/:juice_id' do |juice_id|
   redirect '/wishlist'
 end
 
+post '/wish/create/' do
+  wish = Wish.new(:name =>  params[:name],
+                    :brand => params[:brand])
+  if wish.save
+    status 201
+    redirect '/'
+  else
+    status 412
+    redirect '/'
+  end
+end
+
 get '/wishlist' do
   if current_user
     @juices = current_user.wishes.map(&:juice)
     @is_wishlist = true
-    erb :index
+    erb :wishlist_index
   else
-    redirect '/user'
+    erb :wishlist_index
   end
+    erb :wishlist_index
 end
 
 get '/user' do
@@ -209,6 +231,9 @@ DataMapper.auto_upgrade!
 
 # NEXT
 # -add menu/template
+# -add text/description
+# -add to wishlist only on mouseover
+# -why is font so small in Firefox? (+ logo rollover inconsistency)
 #
 # EVENTUALLY:
 # -add custom sort labels

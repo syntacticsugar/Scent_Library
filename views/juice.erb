@@ -9,6 +9,8 @@
 
 <form action="/juice/<%= @juice.id %>" method="post">
 				<br />
+				<a class="add-to-wishlist" href="/wish/<%= @juice.id %>">add to wishlist</a>
+				<br />
 <input type="hidden" name="_method" value="delete" />
 or, permanently <input class="button" type="submit" value="delete"> this item.
 </form>
