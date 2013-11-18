@@ -70,15 +70,6 @@ get '/' do
   erb :index
 end
 
-#get '/auth/:name/:callback' do
-#  auth = request.env["omniauth.auth"]
-#  user = Person.first_or_create({ :uid => auth["uid"]},{
-#    :uid => auth["uid"],
-#    :created_at => Time.new })
-#    session[:user_id] = user.id
-#  "hello"
-#end
-
 # any of the following routes should work to sign the user in: 
 #   /sign_up, /signup, /sign_in, /signin, /log_in, /login
 ["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
@@ -94,7 +85,6 @@ end
   end
 end
 
-
 post '/juice/create' do
   juice = Juice.new(:name =>  params[:name],
                     :brand => params[:brand])
@@ -109,17 +99,6 @@ post '/juice/create' do
     status 412
     redirect '/juices'
   end
-
-#  validation_passes = [
-#    :username, :activity, :location
-#  ].all? { |k| params[k] and !params[k].strip.empty? }
-#
-#  # preprocess.  store visitor's username in cookie.
-#  session["visitor_name"] = params[:username]
-#  # { "visitor_name" => "Goldie Hawn" }
-#  session["visitor_location"] = params[:location]
-
-
 end
 
 get '/wish/:juice_id' do |juice_id|
@@ -146,10 +125,6 @@ get '/user' do
     current_user.id.to_s + " ... " + session[:user_id].to_s 
   else
     'Greetings. <a href="/sign_in">Sign in with Twitter</a>'
-    # if you replace the above line with the following line, 
-    #   the user gets signed in automatically. Could be useful. 
-    #   Could also break user expectations.
-    # redirect '/auth/twitter'
   end
 
 end
@@ -157,8 +132,7 @@ end
 
 get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
   auth = request.env["omniauth.auth"]
-  user = Person.first_or_create({ :uid => auth["uid"]}, { # what about the 'create' part?
-#    :provider => auth["provider"],   # alan says WHY DID YOU DO THIS
+  user = Person.first_or_create({
     :uid => auth["uid"],
     :username => auth["info"]["nickname"],
     :created_at => Time.now })
@@ -185,7 +159,7 @@ end
 
 put '/juice/:id' do
   juice = Juice.get(params[:id])
-  juice.used = params[:used] ? Time.now : nil
+  juice.added = params[:used] ? Time.now : nil
   juice.name = (params[:name])
   juice.brand = (params[:brand])
   if juice.save
@@ -212,8 +186,6 @@ delete '/juice/:id' do
   redirect '/juices'
 end
 
-
-
 get '/add/:id/:brand/:name' do
   j = Juice.new
   j.id = params[:id]
@@ -225,10 +197,6 @@ end
 
 get '/nicky' do
   "blah blah blah, droned Nicky endlessly on the phone."
-end
-
-get '/ben/:victim' do
-  "Ben has been eating #{params[:victim]} since #{Time.now}. What a lunatic!"
 end
 
 not_found do
@@ -243,4 +211,3 @@ DataMapper.auto_upgrade!
 # EVENTUALLY:
 # -add custom sort labels
 # -allow flacons to be sorted by manufacturer, date added
-# -want vs really want vs kind of want
