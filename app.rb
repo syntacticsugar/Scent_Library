@@ -63,9 +63,9 @@ end
 
 get '/' do
   @juices = if current_user
-              current_user.juices
+              current_user.juices(:order => [ :brand.asc, :name.asc ])
             else
-              Juice.all
+              Juice.all(:order => [ :brand.asc, :name.asc ])
             end
   erb :index
 end
