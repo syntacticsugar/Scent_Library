@@ -16,8 +16,8 @@ class Juice
   property :formula,      String
   property :description,  String
 
-  has n, :owners, "Person", :through => Resource
-  has n, :wishers, "Person", :through => Resource
+  has n, :person_juices
+  has n, :people, "Person", :through => :person_juices
 end
 
 
@@ -30,9 +30,21 @@ class Person
   property :email, String
   property :created_at, DateTime
 
-  has n, :owned_perfumes, "Juice", :through => Resource
-  has n, :wished_for_perfumes, "Juice", :through => Resource
+  has n, :person_juices
+  has n, :juices, :through => :person_juices
 end
 
+
+class PersonJuice
+  include DataMapper::Resource
+
+  belongs_to :juice, :key => true
+  belongs_to :person, :key => true
+
+  property :owned, Boolean, :default => false
+  property :wished_for, Boolean, :default => false
+  
+  property :rating, Integer # 0 to 10
+end
 
 DataMapper.auto_upgrade!
