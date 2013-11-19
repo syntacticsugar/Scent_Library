@@ -1,17 +1,28 @@
 <!--<strong><%= @juice.brand.upcase %></strong> - <strong><%= @juice.name.upcase %></strong> (id: <%= @juice.id %>) -->
 
 <form action="/juice/<%= @juice.id %>" method="post">
-<input name="_method" type="hidden" value="put" />
-<input type="text" name="brand" id="brand" value="<%= @juice.brand %>">
-<input type="text" name="name" id="name" value="<%= @juice.name %>">
-<input class="button" id="juice_submit" name="commit" type="submit" value="update" />
+	<input type="text" name="brand" id="brand" value="<%= @juice.brand %>">
+	<input type="text" name="name" id="name" value="<%= @juice.name %>">
+	<input type="hidden" name="_method" value="put">
+	<% if logged_in? %>
+		<input class="button" type="submit" value="update" />
+	<% end %>
 </form>
 
-<form action="/juice/<%= @juice.id %>" method="post">
-				<br />
-				<a class="add-to-wishlist" href="/wish/<%= @juice.id %>">add to wishlist</a>
-				<br />
-<input type="hidden" name="_method" value="delete" />
-or, permanently <input class="button" type="submit" value="delete"> this item.
-</form>
+<% if logged_in? %>
+	<% assoc = PersonJuice.get(current_user.id, @juice.id) %>
+	<form action="/person_juice" method="post">
+		<input type="checkbox" name="owned" <%= 'checked="checked"' if assoc.owned? %>> Owned?
+		<input type="checkbox" name="wished_for" <%= 'checked="checked"' if assoc.wished_for? %>> Wishlist?
+		<input type="hidden" name="juice_id" value="<%= @juice.id %>">
+		<input type="hidden" name="_method" value="put">
+		<input class="button" type="submit" value="Update">
+	</form>
+
+	<form action="/juice/<%= @juice.id %>/delete" method="get">
+		or, permanently <input class="button" type="submit" value="delete"> this item.
+	</form>
+<% end %>
+
+
 

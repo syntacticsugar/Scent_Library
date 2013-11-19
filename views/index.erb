@@ -1,8 +1,11 @@
-<form action="/juice/create" method="POST">
-	<input type="text" name="brand" id="brand" placeholder="manufacturer">
-	<input type="text" name="name" id="name" placeholder="name of perfume">
-	<input class="button" type="submit" value="add"/>
-</form>
+<% if logged_in? %>
+	<form action="/juice/create" method="POST">
+		<input type="text" name="brand" id="brand" placeholder="manufacturer">
+		<input type="text" name="name" id="name" placeholder="name of perfume">
+		<input class="button" type="submit" value="add"/>	
+	</form>
+<% end %>
+
 <ul class="sort-menu">
 	<li>sort by: &nbsp;&nbsp; &nbsp;&nbsp;  <a id="sort-by-house" class="testclick"  href=#>alphabet</a> (jQuery)</li>
 	<li><a href=# onclick="sortFlasksByHouse();">alphabet</a> (javascript)</li>
@@ -15,15 +18,6 @@
 			<!-- NOTE: using data- style attributes will not work with XHTML 1.1 -->
 			<li class="flask" data-name="<%= juice.name %>" data-house="<%= juice.brand %>">
 			<a href="/juice/<%= juice.id %>"><%= juice.brand %> - <%= juice.name %></a>
-			<% unless current_user.nil? %>
-				<% assoc = PersonJuice.get(current_user.id, juice.id) %>
-				<form action="/person_juice" method="put">
-					<input type="checkbox" name="owned" <%= 'checked="checked"' if assoc.owned? %>> Owned?
-					<input type="checkbox" name="wishlist" <%= 'checked="checked"' if assoc.wished_for? %>> Wishlist?
-					<input type="hidden" name="juice_id" value="<%= juice.id %>"
-					<input type="submit" value="Update">
-				</form>
-			<% end %>
 		<% end %>
 	</ul>
 	<% else %>

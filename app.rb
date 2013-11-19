@@ -94,6 +94,18 @@ get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
   redirect '/'
 end
 
+# Update values in PersonJuice
+put '/person_juice' do
+  @juice = Juice.get(params[:juice_id])
+
+  assoc = PersonJuice.get(current_user.id, @juice.id)
+  assoc.wished_for = !!params[:wished_for]
+  assoc.owned = !!params[:owned]
+  assoc.save
+
+  erb :juice
+end
+
 # View a perfume
 get '/juice/:id' do
   @juice = Juice.get(params[:id])
@@ -124,7 +136,7 @@ end
 
 # See all perfumes.
 get '/juices' do
-  @juices = Juice.all
+  @juices = Juice.all(:order => [ :brand.asc, :name.asc ])
   erb :index
 end
 
@@ -136,8 +148,8 @@ end
 
 # Delete a perfume.
 delete '/juice/:id' do
-  Juice.get(params[:id]).destroy
-  redirect '/juices'
+  Juice.get(params[:id]).destroy!
+  redirect '/'
 end
 
 # Odd way to add a perform (should use 'put /juice?id=1&brand=Channel&name=5')
