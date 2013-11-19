@@ -1,3 +1,6 @@
+require 'dotenv'
+Dotenv.load
+
 require 'sinatra'
 require 'slim'
 require 'omniauth'
