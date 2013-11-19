@@ -26,7 +26,7 @@ helpers do
 end
 
 get '/' do
-  @juices = if current_user
+  @juices = if logged_in?
               current_user.juices(:order => [ :brand.asc, :name.asc ])
             else
               Juice.all(:order => [ :brand.asc, :name.asc ])
@@ -50,7 +50,7 @@ end
 end
 
 post '/juice/create' do
-  if logged_in?
+  if not logged_in?
     status 404
   else
     juice = Juice.new(:name =>  params[:name],
