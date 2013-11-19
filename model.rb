@@ -37,8 +37,8 @@ end
 class PersonJuice
   include DataMapper::Resource
 
-  belongs_to :juice, :key => true
   belongs_to :person, :key => true
+  belongs_to :juice, :key => true
 
   property :owned, Boolean, :default => false
   property :wished_for, Boolean, :default => false
