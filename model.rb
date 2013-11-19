@@ -25,7 +25,8 @@ class Person
 
   property :id, Serial
   property :uid, String, :unique => true
-  property :username, String
+  property :nickname, String
+  property :name, String
   property :provider, String
   property :image, String, :length => 1000
   property :email, String

@@ -100,8 +100,10 @@ get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
   auth = request.env["omniauth.auth"]
 
   user = Person.first_or_create(:uid => auth["uid"])
+   # Other info might have changed since we last authorised.
   user.provider = auth["provider"]
-  user.username = auth["info"]["nickname"] # Might have changed since we last authorised.
+  user.nickname = auth["info"]["nickname"]
+  user.name = auth["info"]["name"]
   user.image = auth["info"]["image"]
   user.save
 
