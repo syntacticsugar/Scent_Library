@@ -1,0 +1,42 @@
+doctype
+html[lang="en"]
+  head
+    title = "(･_･) ... what are you wearing today? (•ω•)"
+    meta[charset="utf-8"]
+    link[href="/css/procss.css" rel="stylesheet"]
+    link[href="/css/bootstrap.min.css" rel="stylesheet"]
+    link[href="/css/modules.css" rel="stylesheet"]
+    link[href="/css/iris_ganache.css" rel="stylesheet"]
+    script[src="/js/jquery-1.10.2.min.js"]
+  body
+    .container
+      - if logged_in?
+        #login
+          |  Greetings, 
+          strong= current_user.name
+          img.avatar_small[src=current_user.image]
+          | (logged in via #{current_user.provider.capitalize} - 
+          a.sign-out[href="/signout"] leave
+          | ) 
+      - else
+        #login
+          | Sign in securely via 
+          a[href="/auth/twitter"] Twitter
+          |  or 
+          a[href="/auth/facebook"] Facebook.
+      a[href="/"]
+        img#logo[src="/images/logo.png"]
+      ul.top-nav
+        li
+          a[href="/"] home
+        li
+          a[href="/?wishlist_only=1"] wishlist
+        li
+          a[href="/?to_buy_only=1"] to-buy
+        li
+          a[href="/how-to"] how-to
+      == yield
+      footer
+        br
+        br
+    script[src="/js/pistachio.js"]

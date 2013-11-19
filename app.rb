@@ -15,6 +15,8 @@ require_relative 'model.rb'
 enable :sessions
 enable :inline_templates
 
+set :slim, :pretty => development?
+
 helpers do
   def current_user
     @current_user ||= Person.get(session[:user_id]) if session[:user_id]
@@ -44,7 +46,7 @@ get '/' do
               Juice.all(:order => [ :brand.asc, :name.asc ])
             end
 
-  erb :index
+  slim :index
 end
 
 # any of the following routes should work to sign the user in: 
@@ -134,13 +136,13 @@ get '/juice/:id' do
            else
             nil
            end
-  erb :juice
+  slim :juice
 end
 
 # Edit a perfume
 get '/juice/:id/edit' do
   @juice = Juice.get(params[:id])
-  erb :edit
+  slim :edit
 end
 
 # Update a perfume.
@@ -163,13 +165,13 @@ end
 # See all perfumes.
 get '/juices' do
   @juices = Juice.all(:order => [ :brand.asc, :name.asc ])
-  erb :index
+  slim :index
 end
 
 # Confirm deletion of a perfume.
 get '/juice/:id/delete' do
   @juice = Juice.get(params[:id])
-  erb :delete
+  slim :delete
 end
 
 # Delete a perfume.
@@ -188,6 +190,10 @@ get '/add/:brand/:name' do
   j.name = params[:name]
   j.save
   "i hope that saved, lol."
+end
+
+get '/how-to' do
+  slim :"how-to"
 end
 
 get '/nicky' do

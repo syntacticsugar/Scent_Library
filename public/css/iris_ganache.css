@@ -151,3 +151,13 @@ input[type=text]{
 
 .add-to-wishlist {
 }
+
+body { background: #e4e4e4; font-family: "Lato"; }
+#wrapper { margin-left: 10%; margin-top: 5%; font: Lato; } 
+a, a:visited { color: #AF6D1D; } 
+img.avatar_small {
+  width: 24;
+  height: 24;
+  padding-left: 8px;
+  padding-right: 8px;
+}

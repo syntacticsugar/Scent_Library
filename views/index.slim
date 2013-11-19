@@ -1,0 +1,21 @@
+- if logged_in?
+  form[action="/juice/create" method="POST"]
+    input#brand[type="text" name="brand" placeholder="manufacturer"]
+    input#name[type="text" name="name" placeholder="name of perfume"]
+    input.button[type="submit" value="add"]
+
+ul.sort-menu
+  li
+    a[href="#" onclick="sortFlasksByBrand();"] alphabet
+  li
+    a[href="#" onclick="sortFlasksByDateAdded();"] date added
+  li
+    a[href="#" onclick="sortFlasksByFormula();"] formula
+
+- if @juices.empty?
+ p None, for now.
+- else
+  ul.flasks
+    - @juices.each do |juice|
+      li.flask[name=juice.name brand=juice.brand added=juice.created_at formula=juice.formula]
+        a[href="/juice/#{juice.id}"]= "#{juice.brand} - #{juice.name}"
