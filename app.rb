@@ -19,6 +19,10 @@ helpers do
   def current_user
     @current_user ||= Person.get(session[:user_id]) if session[:user_id]
   end
+
+  def logged_in?
+    !!@current_user
+  end
 end
 
 get '/' do
@@ -46,13 +50,19 @@ end
 end
 
 post '/juice/create' do
-  juice = Juice.new(:name =>  params[:name],
-                    :brand => params[:brand])
-
-  if juice.save
-    status 201
+  if logged_in?
+    status 404
   else
-    status 412
+    juice = Juice.new(:name =>  params[:name],
+                      :brand => params[:brand])
+
+    juice.people << current_user
+
+    if juice.save
+      status 201
+    else
+      status 412
+    end
   end
 
   redirect '/'
