@@ -9,14 +9,20 @@ image.addEventListener('mouseout', function() {
 }, false);
 
 function sortFlasksByHouse() {
-  console.log("sorting list");
   $(".flasks li").sort(sortByHouse).appendTo(".flasks");
+}
+
+function sortFlasksByDateAdded() {
+  $(".flasks li").sort(sortByDateAdded).appendTo(".flasks");
+}
+
+function sortFlasksByFormula() {
+  $(".flasks li").sort(sortByFormula).appendTo(".flasks");
 }
 
 function sortByHouse(a, b) {
   // uses `localCompare` to get region specific string sorting
-  console.log("comparing elements");
-
+  
   // Compare by manufacturer first.
   var aval, bval;
   aval = a.getAttribute('data-house').toLowerCase();
@@ -31,6 +37,22 @@ function sortByHouse(a, b) {
   }
 
   return comparison;
+}
+
+function sortByDateAdded(a, b) {
+  var aval, bval;
+  aval = a.getAttribute('data-date-added');
+  bval = b.getAttribute('data-date-added');
+  // If time is the same, sort by alpha.
+  return aval > bval ? -1 : (aval < bval ? 1 : sortByHouse(a, b))
+}
+
+function sortByFormula(a, b) {
+  var aval, bval;
+  aval = a.getAttribute('data-formula');
+  bval = b.getAttribute('data-formula');
+  // If formula is the same, sort by alpha.
+  return aval > bval ? -1 : (aval < bval ? 1 : sortByHouse(a, b))
 }
 
 $(".testclick").click(sortFlasksByHouse);

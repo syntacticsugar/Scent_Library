@@ -26,7 +26,7 @@
       	<% if logged_in? %>
 			<div id="login">
 				Greetings, <strong><%= current_user.username %></strong>!
-				<img src="<%= current_user.image %>" width="32" height="32" />
+				<img src="<%= current_user.image %>" width="24" height="24" />
 				(logged in via <%= current_user.provider.capitalize %> - <a href="/signout" class="sign-out">leave</a>)
 			</div>
       	<% else %>
