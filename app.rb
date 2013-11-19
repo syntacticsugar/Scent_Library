@@ -148,6 +148,9 @@ end
 
 # Delete a perfume.
 delete '/juice/:id' do
+  # Destroy associations to people.
+  Juice.get(params[:id]).person_juices.destroy!
+  # destroy the juice itself.
   Juice.get(params[:id]).destroy!
   redirect '/'
 end
