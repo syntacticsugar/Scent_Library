@@ -15,10 +15,14 @@
 			<!-- NOTE: using data- style attributes will not work with XHTML 1.1 -->
 			<li class="flask" data-name="<%= juice.name %>" data-house="<%= juice.brand %>">
 			<a href="/juice/<%= juice.id %>"><%= juice.brand %> - <%= juice.name %></a>
-      <% unless @is_wishlist %>
-							<!--<a class="add-to-wishlist" href="/wish/<%= juice.id %>">add to wishlist</a>-->
-      <% end %>
-			</li>
+			<% unless current_user.nil? %>
+				<% assoc = PersonJuice.get(current_user.id, juice.id) %>
+				<form action="/juices/<%= juice.id %>" method="put">
+					<input type="checkbox" name="owned" <%= 'checked="checked"' if assoc.owned? %>> Owned?
+					<input type="checkbox" name="wishlist" <%= 'checked="checked"' if assoc.wished_for? %>> Wishlist?
+					<input type="submit" value="Update">
+				</form>
+			<% end %>
 		<% end %>
 	</ul>
 	<% else %>

@@ -1,6 +1,5 @@
 require 'sinatra'
 require 'slim'
-
 require 'omniauth'
 require 'omniauth-twitter'
 require 'omniauth-github'
@@ -28,15 +27,6 @@ get '/' do
   erb :index
 end
 
-get '/wishlist' do
-  @juices = if current_user
-              current_user.juices(:order => [ :brand.asc, :name.asc ])
-            else
-              Juice.all(:order => [ :brand.asc, :name.asc ])
-            end
-  erb :index
-end
-
 # any of the following routes should work to sign the user in: 
 #   /sign_up, /signup, /sign_in, /signin, /log_in, /login
 ["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
@@ -55,46 +45,14 @@ end
 post '/juice/create' do
   juice = Juice.new(:name =>  params[:name],
                     :brand => params[:brand])
-  if current_user
-    juice.persons << current_user
-  end
 
   if juice.save
     status 201
-    redirect "/"
   else
     status 412
-    redirect '/'
   end
-end
 
-get '/wish/:juice_id' do |juice_id|
-  juice = Juice.get(juice_id)
-  wish = Wish.create(juice: juice, person: current_user) if current_user
-  redirect '/wishlist'
-end
-
-post '/wish/create/' do
-  wish = Wish.new(:name =>  params[:name],
-                    :brand => params[:brand])
-  if wish.save
-    status 201
-    redirect '/'
-  else
-    status 412
-    redirect '/'
-  end
-end
-
-get '/wishlist' do
-  if current_user
-    @juices = current_user.wishes.map(&:juice)
-    @is_wishlist = true
-    erb :wishlist_index
-  else
-    erb :wishlist_index
-  end
-    erb :wishlist_index
+  redirect '/'
 end
 
 get '/user' do
@@ -123,27 +81,25 @@ get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
   redirect '/'
 end
 
-
-
-# view a perfume/juice
-#get '/juice/:id' do
-get %r{\A/juice/(\d+)\Z} do |id| # useful regex
-  @juice = Juice.get(id.to_i)
-#  erb :edit
+# View a perfume
+get '/juice/:id' do
+  @juice = Juice.get(params[:id])
   erb :juice
-  #"testing: #{@juice.id}, #{@juice.name}"
 end
 
+# Edit a perfume
 get '/juice/:id/edit' do
   @juice = Juice.get(params[:id])
   erb :edit
 end
 
+# Update a perfume.
 put '/juice/:id' do
   juice = Juice.get(params[:id])
-  juice.added = params[:used] ? Time.now : nil
-  juice.name = (params[:name])
-  juice.brand = (params[:brand])
+
+  juice.name = params[:name] if params[:name]
+  juice.brand = params[:brand] if params[:brand]
+
   if juice.save
     status 201
     redirect '/'
@@ -153,21 +109,25 @@ put '/juice/:id' do
   end
 end
 
+# See all perfumes.
 get '/juices' do
   @juices = Juice.all
   erb :index
 end
 
+# Confirm deletion of a perfume.
 get '/juice/:id/delete' do
   @juice = Juice.get(params[:id])
   erb :delete
 end
 
+# Delete a perfume.
 delete '/juice/:id' do
   Juice.get(params[:id]).destroy
   redirect '/juices'
 end
 
+# Odd way to add a perform (should use 'put /juice?id=1&brand=Channel&name=5')
 get '/add/:id/:brand/:name' do
   j = Juice.new
   j.id = params[:id]
