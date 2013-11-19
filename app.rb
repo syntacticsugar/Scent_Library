@@ -98,10 +98,13 @@ end
 
 get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
   auth = request.env["omniauth.auth"]
-  user = Person.first_or_create({
-    :uid => auth["uid"],
-    :username => auth["info"]["nickname"],
-    :created_at => Time.now })
+
+  user = Person.first_or_create(:uid => auth["uid"])
+  user.provider = auth["provider"]
+  user.username = auth["info"]["nickname"] # Might have changed since we last authorised.
+  user.image = auth["info"]["image"]
+  user.save
+
   session[:user_id] = user.id
 
   redirect '/'
@@ -176,10 +179,9 @@ delete '/juice/:id' do
   redirect '/'
 end
 
-# Odd way to add a perform (should use 'put /juice?id=1&brand=Channel&name=5')
-get '/add/:id/:brand/:name' do
+# Odd way to add a perform (should use 'post /juice?brand=Channel&name=5')
+get '/add/:brand/:name' do
   j = Juice.new
-  j.id = params[:id]
   j.brand = params[:brand]
   j.name = params[:name]
   j.save

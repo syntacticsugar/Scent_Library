@@ -24,10 +24,12 @@ class Person
   include DataMapper::Resource
 
   property :id, Serial
-  property :uid, String
+  property :uid, String, :unique => true
   property :username, String
+  property :provider, String
+  property :image, String, :length => 1000
   property :email, String
-  property :created_at, DateTime
+  property :created_at, DateTime # Magic property will be set automatically.
 
   has n, :person_juices
   has n, :juices, :through => :person_juices
