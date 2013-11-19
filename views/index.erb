@@ -17,9 +17,10 @@
 			<a href="/juice/<%= juice.id %>"><%= juice.brand %> - <%= juice.name %></a>
 			<% unless current_user.nil? %>
 				<% assoc = PersonJuice.get(current_user.id, juice.id) %>
-				<form action="/juices/<%= juice.id %>" method="put">
+				<form action="/juice/<%= juice.id %>" method="put">
 					<input type="checkbox" name="owned" <%= 'checked="checked"' if assoc.owned? %>> Owned?
 					<input type="checkbox" name="wishlist" <%= 'checked="checked"' if assoc.wished_for? %>> Wishlist?
+					<input type="hidden" name="juice" value="<%= juice.id %>"
 					<input type="submit" value="Update">
 				</form>
 			<% end %>
