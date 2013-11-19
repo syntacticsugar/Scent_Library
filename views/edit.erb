@@ -1,9 +1,14 @@
-<form action="/juice/<%= @juice.id %>" method="post">
-<input name="_method" type="hidden" value="put" />
-<input type="text" name="brand" id="brand" value="<%= @juice.brand %>">
-<input type="text" name="name" id="name" value="<%= @juice.name %>">
- <input id="used" name="used" type="checkbox" value="finished" <%= @juice.used ? "checked" : "" %>/>
-<input class="button" id="juice_submit" name="commit" type="submit" value="Update" />
-</form>
-
-<a href="/juice/<%= @juice.id %>/delete">Delete this item</a>
+h2
+  = @juice.name
+  h2
+    h3
+      | Are you sure you want to delete this item?
+      h3
+        |  <form action="/juice/
+        = @juice.id
+        | " method="post"> 
+        input[type="hidden" name="_method" value="delete"]
+        input[type="submit" value="Delete"]
+        |  or 
+        a[href="/"]
+          | Cancel

@@ -27,10 +27,23 @@ end
 
 get '/' do
   @juices = if logged_in?
-              current_user.juices(:order => [ :brand.asc, :name.asc ])
+              juices = current_user.juices(:order => [ :brand.asc, :name.asc ])
+
+              if params[:wishlist_only]
+                juices.select! do |juice|
+                  PersonJuice.get(current_user.id, juice.id).wished_for?
+                end
+              elsif params[:to_buy_only]
+                juices.select! do |juice|
+                  PersonJuice.get(current_user.id, juice.id).to_buy?
+                end
+              end
+
+              juices
             else
               Juice.all(:order => [ :brand.asc, :name.asc ])
             end
+
   erb :index
 end
 
@@ -101,14 +114,21 @@ put '/person_juice' do
   assoc = PersonJuice.get(current_user.id, @juice.id)
   assoc.wished_for = !!params[:wished_for]
   assoc.owned = !!params[:owned]
+  assoc.to_buy = !!params[:to_buy]
+  assoc.rating = (params[:rating] == "unset" ? nil : params[:rating])
   assoc.save
 
-  erb :juice
+  redirect "/juice/#{@juice.id}"
 end
 
 # View a perfume
 get '/juice/:id' do
   @juice = Juice.get(params[:id])
+  @assoc = if logged_in?
+             PersonJuice.get(current_user.id, @juice.id)
+           else
+            nil
+           end
   erb :juice
 end
 
@@ -121,6 +141,7 @@ end
 # Update a perfume.
 put '/juice/:id' do
   juice = Juice.get(params[:id])
+  puts params
 
   juice.name = params[:name] if params[:name]
   juice.brand = params[:brand] if params[:brand]

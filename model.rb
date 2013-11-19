@@ -37,13 +37,18 @@ end
 class PersonJuice
   include DataMapper::Resource
 
+  RATING_RANGE = 0..5
+
   belongs_to :person, :key => true
   belongs_to :juice, :key => true
 
   property :owned, Boolean, :default => false
   property :wished_for, Boolean, :default => false
+  property :to_buy, Boolean, :default => false
   property :used_at, DateTime
-  property :rating, Integer # 0 to 10
+  property :rating, Integer
+
+  validates_within :rating, :set => RATING_RANGE.to_a + [nil]
 end
 
 DataMapper.auto_upgrade!

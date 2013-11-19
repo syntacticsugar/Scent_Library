@@ -10,10 +10,21 @@
 </form>
 
 <% if logged_in? %>
-	<% assoc = PersonJuice.get(current_user.id, @juice.id) %>
 	<form action="/person_juice" method="post">
-		<input type="checkbox" name="owned" <%= 'checked="checked"' if assoc.owned? %>> Owned?
-		<input type="checkbox" name="wished_for" <%= 'checked="checked"' if assoc.wished_for? %>> Wishlist?
+		<input type="checkbox" name="owned" <%= 'checked="checked"' if @assoc.owned? %>> Owned?
+		</br>
+		<input type="checkbox" name="to_buy" <%= 'checked="checked"' if @assoc.to_buy? %>> To buy?
+		</br>
+		<input type="checkbox" name="wished_for" <%= 'checked="checked"' if @assoc.wished_for? %>> Wishlist?
+		</br>
+		Rating: 
+		<select name="rating">
+			<option value="unset" <%= 'selected="selected"' if @assoc.rating.nil? %>>Unset</option>
+			<% PersonJuice::RATING_RANGE.each do |i| %>
+				<option value="<%=i%>" <%= 'selected="selected"' if @assoc.rating == i %>><%=i%></option>
+			<% end %>
+		</select>
+		</br>
 		<input type="hidden" name="juice_id" value="<%= @juice.id %>">
 		<input type="hidden" name="_method" value="put">
 		<input class="button" type="submit" value="Update">
