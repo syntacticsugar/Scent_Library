@@ -21,7 +21,7 @@ helpers do
   end
 
   def logged_in?
-    !!@current_user
+    !!current_user
   end
 end
 
@@ -51,7 +51,7 @@ end
 
 post '/juice/create' do
   if not logged_in?
-    status 404
+    status 401
   else
     juice = Juice.new(:name =>  params[:name],
                       :brand => params[:brand])
