@@ -16,10 +16,21 @@ function sortFlasksByHouse() {
 function sortByHouse(a, b) {
   // uses `localCompare` to get region specific string sorting
   console.log("comparing elements");
+
+  // Compare by manufacturer first.
   var aval, bval;
-  aval = a.getAttribute('data-house');
-  bval = b.getAttribute('data-house');
-  return aval.localeCompare(bval);
+  aval = a.getAttribute('data-house').toLowerCase();
+  bval = b.getAttribute('data-house').toLowerCase();
+  comparison = aval.localeCompare(bval);
+
+  // Maufacturers are the same, so instead sort by name within that manufacturer.
+  if (comparison == 0) {
+    aval = a.getAttribute('data-name').toLowerCase();
+    bval = b.getAttribute('data-name').toLowerCase();
+    comparison = aval.localeCompare(bval);
+  }
+
+  return comparison;
 }
 
 $(".testclick").click(sortFlasksByHouse);
