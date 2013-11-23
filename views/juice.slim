@@ -7,26 +7,25 @@ form[action="/juice/#{@juice.id}" method="post"]
     input.button[type="submit" value="update"]
 
 - if logged_in?
-  form[action="/person_juice" method="post"]
+  form.juice-type[action="/person_juice" method="post"]
+    //input[type="checkbox" name="owned" checked=(@assoc.owned? ? "checked" : nil)] owned?
+    input.margin-right-15[type="checkbox" name="wished_for" checked=(@assoc.wished_for? ? "checked" : nil)] wishlist
+    input.margin-right-15[type="checkbox" name="to_buy" checked=(@assoc.to_buy? ? "checked" : nil)] buy list
     br
-    input[type="checkbox" name="owned" checked=(@assoc.owned? ? "checked" : nil)] Owned?
-    br
-    input[type="checkbox" name="to_buy" checked=(@assoc.to_buy? ? "checked" : nil)] To buy?
-    br
-    input[type="checkbox" name="wished_for" checked=(@assoc.wished_for? ? "checked" : nil)] Wishlist?
-    br
-    |  Rating: 
-    select[name="rating"]
-      option[value="unset" name="rating" selected=(@assoc.rating.nil? ? "selected" : nil)] Unset
-      - PersonJuice::RATING_RANGE.each do |i|
-        option[value="#{i}" name="rating" selected=(@assoc.rating == i ? "selected" : nil)]= i
+    textarea.juice-description[placeholder="description"]
+    //|  Rating: 
+    //select[name="rating"]
+    //  option[value="unset" name="rating" selected=(@assoc.rating.nil? ? "selected" : nil)] Unset
+    //  - PersonJuice::RATING_RANGE.each do |i|
+    //    option[value="#{i}" name="rating" selected=(@assoc.rating == i ? "selected" : nil)]= i
 
     input[type="hidden" name="juice_id" value=@juice.id]
     input[type="hidden" name="_method" value="put"]
 
-    input.button[type="submit" value="Update"]
+    input.button[type="submit" value="update"]
 
   form[action="/juice/#{@juice.id}/delete" method="get"]
+    br
     | or, permanently
     input.button[type="submit" value="delete"]
     | this item.

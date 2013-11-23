@@ -14,10 +14,11 @@ html[lang="en"]
         #login
           |  Greetings, 
           strong= current_user.name
-          img.avatar_small[src=current_user.image]
-          | (logged in via #{current_user.provider.capitalize} - 
-          a.sign-out[href="/signout"] leave
-          | ) 
+          //img.avatar_small[src=current_user.image]
+          .logged-in-via
+            | (logged in via #{current_user.provider.capitalize} - 
+            a.sign-out[href="/signout"] leave
+            | ) 
       - else
         #login
           | Sign in securely via 

@@ -211,5 +211,13 @@ end
 # -why is font so small in Firefox? (+ logo rollover inconsistency)
 #
 # EVENTUALLY:
-# -add custom sort labels
+# -add custom sort labels (?)
 # -allow flacons to be sorted by manufacturer, date added
+# -add some sort of page-caching, so if the last page users
+#       used is 'wishlist', it will show wishlist items the
+#       next time they visit the site.
+# -OMG awesome upcoming feature: auto-add to the database:
+#       -as soon as the user types 1 perfume, another row of
+#       input fields appear underneath.
+#       -as soon as the user CLICKS on the new row, the PREVIOUS
+#       row of perfume gets automatically added to the database!
