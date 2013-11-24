@@ -123,6 +123,7 @@ put '/person_juice' do
   assoc.owned = !!params[:owned]
   assoc.to_buy = !!params[:to_buy]
   assoc.rating = (params[:rating] == "unset" ? nil : params[:rating])
+  assoc.notes = !!params[:notes]
   assoc.save
 
   redirect "/juice/#{@juice.id}"
@@ -134,7 +135,7 @@ get '/juice/:id' do
   @assoc = if logged_in?
              PersonJuice.get(current_user.id, @juice.id)
            else
-            nil
+             nil
            end
   slim :juice
 end

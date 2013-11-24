@@ -50,6 +50,7 @@ class PersonJuice
   property :to_buy, Boolean, :default => false
   property :used_at, DateTime
   property :rating, Integer
+  property :notes, String
 
   validates_within :rating, :set => RATING_RANGE.to_a + [nil]
 end
