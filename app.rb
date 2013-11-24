@@ -39,6 +39,10 @@ get '/' do
                 juices.select! do |juice|
                   PersonJuice.get(current_user.id, juice.id).to_buy?
                 end
+              elsif params[:own_only]
+                juices.select! do |juice|
+                  PersonJuice.get(current_user.id, juice.id).owned?
+                end
               end
 
               juices
