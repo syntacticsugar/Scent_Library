@@ -214,6 +214,7 @@ end
 # -add text/description
 # -add to wishlist only on mouseover
 # -why is font so small in Firefox? (+ logo rollover inconsistency)
+# -make lists/user accounts private if they choose to be private
 #
 # EVENTUALLY:
 # -add custom sort labels (?)
