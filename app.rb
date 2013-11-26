@@ -43,9 +43,9 @@ get '/' do
                 juices.select! do |juice|
                   PersonJuice.get(current_user.id, juice.id).owned?
                 end
+              else
+                juices
               end
-
-              juices
             else
               Juice.all(:order => [ :brand.asc, :name.asc ])
             end
