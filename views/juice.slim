@@ -24,8 +24,8 @@ form[action="/juice/#{@juice.id}" method="post"]
 
     input.button[type="submit" value="update"]
 
-  form[action="/juice/#{@juice.id}/delete" method="get"]
     br
-    | or, permanently
-    input.button[type="submit" value="delete"]
-    | this item.
+    br
+    | or, permanently 
+    a[href="/juice/#{@juice.id}/delete"] delete
+    |  this item.
