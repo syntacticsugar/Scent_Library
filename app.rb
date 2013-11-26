@@ -127,7 +127,7 @@ put '/person_juice' do
   assoc.owned = !!params[:owned]
   assoc.to_buy = !!params[:to_buy]
   assoc.rating = (params[:rating] == "unset" ? nil : params[:rating])
-  assoc.notes = !!params[:notes]
+  assoc.notes = params[:notes] # remember, text, not a boolean
   assoc.save
 
   redirect "/juice/#{@juice.id}"
