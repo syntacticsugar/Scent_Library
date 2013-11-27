@@ -32,15 +32,15 @@ get '/' do
               juices = current_user.juices(:order => [ :brand.asc, :name.asc ])
 
               if params[:wishlist_only]
-                juices.select! do |juice|
+                juices.select do |juice|
                   PersonJuice.get(current_user.id, juice.id).wished_for?
                 end
               elsif params[:to_buy_only]
-                juices.select! do |juice|
+                juices.select do |juice|
                   PersonJuice.get(current_user.id, juice.id).to_buy?
                 end
               elsif params[:own_only]
-                juices.select! do |juice|
+                juices.select do |juice|
                   PersonJuice.get(current_user.id, juice.id).owned?
                 end
               else
@@ -205,12 +205,18 @@ get '/nicky' do
   "blah blah blah, droned Nicky endlessly on the phone."
 end
 
+get '/ruby' do
+  "ruby childs"
+end
+
 not_found do
   halt 404, "whoa there big thunder! page not found, sorrrrri."
 end
 
 # NEXT
+# -"updated" once user has clicked 'updated'
 # -add menu/template
+# -
 # -add text/description
 # -add to wishlist only on mouseover
 # -why is font so small in Firefox? (+ logo rollover inconsistency)
