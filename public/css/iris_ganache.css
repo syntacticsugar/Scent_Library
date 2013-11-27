@@ -95,6 +95,8 @@ input[type="text"], textarea {
 
 .juice-description{
   margin: 15px 0 5px 0;
+  height: 150px;
+  width: 300px;
   display: block;
   border: 0;
 }

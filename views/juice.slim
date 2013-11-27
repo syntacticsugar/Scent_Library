@@ -1,15 +1,15 @@
 - if logged_in?
-  form.juice-type[action="/person_juice" method="post"]
-    //form[action="/juice/#{@juice.id}" method="post"]
+  form[action="/juice/#{@juice.id}" method="post"]
     input[type="text" name="brand" id="brand" value=@juice.brand]
     input[type="text" name="name" id="name" value=@juice.name]
 
     input[type="hidden" name="_method" value="put"]
     input.button[type="submit" value="update"]
 
-    input[type="checkbox" name="owned" checked=(@assoc.owned? ? "checked" : nil)] own
-    input.margin-right-15[type="checkbox" name="wished_for" checked=(@assoc.wished_for? ? "checked" : nil)]add to wishlist
-    input.margin-right-15[type="checkbox" name="to_buy" checked=(@assoc.to_buy? ? "checked" : nil)]add to buy list
+  form.juice-type[action="/person_juice" method="post"]
+    input[type="checkbox" name="owned" checked=(@assoc.owned? ? "checked" : nil)] own &nbsp;&nbsp; &nbsp;&nbsp;
+    input.margin-right-15[type="checkbox" name="wished_for" checked=(@assoc.wished_for? ? "checked" : nil)]add to wishlist  &nbsp;&nbsp;&nbsp;&nbsp;
+    input.margin-right-15[type="checkbox" name="to_buy" checked=(@assoc.to_buy? ? "checked" : nil)]add to buy list &nbsp;&nbsp;
     br
     textarea.juice-description[placeholder="notes" name="notes"] #{@assoc.notes}
     //|  Rating: 
@@ -28,3 +28,5 @@
     | or, permanently 
     a[href="/juice/#{@juice.id}/delete"] delete
     |  this item.
+- else
+  | You must be logged in to view this item.
