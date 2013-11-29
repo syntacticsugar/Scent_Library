@@ -2,7 +2,10 @@
 form[action="/juice/create" method="POST"]
   input#brand[type="text" name="brand" placeholder="manufacturer"]
   input#name[type="text" name="name" placeholder="name of perfume"]
+  input[type="hidden" name="list_type" value="#{@list_type}"]
   input.button[type="submit" value="add"]
+
+p You are looking at your #{@list_type}
 
 ul.sort-menu
   li

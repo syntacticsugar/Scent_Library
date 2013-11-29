@@ -1,3 +1,6 @@
+a, a:visited { color: #AF6D1D; }
+a:hover { color: #c9822b; text-decoration: none; }
+
 #logo {
   width: 131px;
   height: 62px;
@@ -26,18 +29,31 @@
 .sign-out {
   color: cadetblue;
   font-size: 10px;
+  text-decoration: underline;
 }
 
-.sign-out :hover{
+.sign-out:hover{
   color: black;
 }
 
+ul.settings {
+  font-size: 10px;
+  text-align: right;
+}
+ul.settings li {
+  display: inline;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0 5px 0 5px;
+}
+
 ul.top-nav {
+  margin-bottom: 20px;
 }
 
 ul.top-nav li {
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 14px;
   display:inline;
   margin: 0 10px 0 0;
   padding: 4px;
@@ -45,7 +61,7 @@ ul.top-nav li {
 
 ul.top-nav li:hover {
   background: #ededed;
-  color: #bf7821;
+  color: #9da30b; /**green**/
   text-decoration: none;
 }
 
@@ -58,7 +74,7 @@ ul.sort-menu {
 ul.sort-menu li {
   display: inline;
   margin: 0 5px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 #brand, #name {
@@ -66,7 +82,7 @@ ul.sort-menu li {
 }
 
 .flasks {
-  font-size: 12px;
+  font-size: 13px;
 }
 .flask {
   list-style-type: circle;
@@ -96,6 +112,9 @@ input[type="text"], textarea {
 .juice-description{
   margin: 15px 0 5px 0;
   height: 150px;
+  font-family: georgia;
+  font-size: 14px;
+  font-style: normal;
   width: 300px;
   display: block;
   border: 0;
@@ -107,7 +126,7 @@ input[type=text]{
     box-shadow: 0 1px 5px rgba(0,0,0,0.2) inset, 0 -1px 0 rgba(0,0,0,0.05) inset;
     transition: all 0.2s linear;
     font-size: 13px;
-    height: 20px;
+    height: 30px;
     color: black;
     position: relative;
     -webkit-border-radius: 9px;
@@ -174,7 +193,6 @@ input[type=text]{
 
 body { background: #e4e4e4; font-family: "Lato"; }
 #wrapper { margin-top: 5%; font: Lato; } 
-a, a:visited { color: #AF6D1D; } 
 img.avatar_small {
   width: 24;
   height: 24;

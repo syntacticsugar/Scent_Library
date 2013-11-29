@@ -19,6 +19,12 @@ html[lang="en"]
             | (logged in via #{current_user.provider.capitalize} - 
             a.sign-out[href="/signout"] leave
             | ) 
+          ul.settings
+            li
+              a[href="/settings/profile"] my profile
+            li
+              a[href="/settings/account"] settings
+
       - else
         #login
           | Sign in securely via 
@@ -35,7 +41,7 @@ html[lang="en"]
         li
           a[href="/?to_buy_only=1"] to-buy
         li
-          a[href="/how-to"] how-to
+          a[href="/faq"] FAQ
       == yield
       footer
         br

@@ -28,27 +28,28 @@ helpers do
 end
 
 get '/' do
-  @juices = if logged_in?
-              juices = current_user.juices(:order => [ :brand.asc, :name.asc ])
+  if logged_in?
+    @juices = current_user.juices(:order => [ :brand.asc, :name.asc ])
 
-              if params[:wishlist_only]
-                juices.select do |juice|
-                  PersonJuice.get(current_user.id, juice.id).wished_for?
-                end
-              elsif params[:to_buy_only]
-                juices.select do |juice|
-                  PersonJuice.get(current_user.id, juice.id).to_buy?
-                end
-              elsif params[:own_only]
-                juices.select do |juice|
-                  PersonJuice.get(current_user.id, juice.id).owned?
-                end
-              else
-                juices
-              end
-            else
-              Juice.all(:order => [ :brand.asc, :name.asc ])
-            end
+    if params[:wishlist_only]
+      @juices = @juices.select do |juice|
+        @list_type = "wishlist"
+        PersonJuice.get(current_user.id, juice.id).wished_for?
+      end
+    elsif params[:to_buy_only]
+      @juices = @juices.select do |juice|
+        @list_type = "shopping list"
+        PersonJuice.get(current_user.id, juice.id).to_buy?
+      end
+    elsif params[:own_only]
+      @juices = @juices.select do |juice|
+        @list_type = "collection"
+        PersonJuice.get(current_user.id, juice.id).owned?
+      end
+    end
+  else
+    Juice.all(:order => [ :brand.asc, :name.asc ])
+  end
 
   slim :index
 end
@@ -69,6 +70,7 @@ end
 end
 
 post '/juice/create' do
+  list_type = params[:list_type]
   if not logged_in?
     status 401
   else
@@ -197,8 +199,8 @@ get '/add/:brand/:name' do
   "i hope that saved, lol."
 end
 
-get '/how-to' do
-  slim :"how-to"
+get '/faq' do
+  slim :"faq"
 end
 
 get '/nicky' do
