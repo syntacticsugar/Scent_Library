@@ -127,12 +127,12 @@ put '/person_juice' do
   assoc = PersonJuice.get(current_user.id, @juice.id)
   # sets the labels *IF* the params.key(:item) are passed as parameters
   # otherwise, if it is not set, it will default to nil, and !!nil is FALSE
-  assoc.wished_for = !!params[:wished_for] if params.key?(:wished_for)
-  assoc.owned = !!params[:owned] if params.key?(:owned)
-  assoc.to_buy = !!params[:to_buy] if params.key?(:to_buy)
+  assoc.wished_for = !!params[:wished_for] if params.key?("wished_for")
+  assoc.owned = !!params[:owned] if params.key?("owned")
+  assoc.to_buy = !!params[:to_buy] if params.key?("to_buy")
 
-  assoc.rating = (params[:rating] == "unset" ? nil : params[:rating]) if params.key?(:rating)
-  assoc.notes = params[:notes] if params.key?(:notes) # remember, text, not a boolean
+  assoc.rating = (params[:rating] == "unset" ? nil : params[:rating]) if params.key?("rating")
+  assoc.notes = params[:notes] if params.key?("notes") # remember, text, not a boolean
   assoc.save
 
   redirect "/juice/#{@juice.id}"

@@ -55,7 +55,7 @@ function sortByFormula(a, b) {
   return aval > bval ? -1 : (aval < bval ? 1 : sortByHouse(a, b))
 }
 
-$(".testclick").click(sortFlasksByHouse);
+//$(".testclick").click(sortFlasksByHouse);
 
 function updateJuice(juiceID,field,value) {
   $.ajax({
@@ -63,6 +63,6 @@ function updateJuice(juiceID,field,value) {
   // "/person_juice?juice_id=14&wished_for=true"
   url: "/person_juice?juice_id=" + juiceID + "&" + field + "=" + value,
   type: "PUT",
-  }).done(function() { alert("added to " + field) });
+  }).done(function() { alert("Added to " + field  + ".") });
 }
 
