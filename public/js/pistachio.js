@@ -56,3 +56,13 @@ function sortByFormula(a, b) {
 }
 
 $(".testclick").click(sortFlasksByHouse);
+
+function updateJuice(juiceID,field,value) {
+  $.ajax({
+  // following line "/person_juice" followed by ? to signify parameters are following
+  // "/person_juice?juice_id=14&wished_for=true"
+  url: "/person_juice?juice_id=" + juiceID + "&" + field + "=" + value,
+  type: "PUT",
+  }).done(function() { alert("added to " + field) });
+}
+
