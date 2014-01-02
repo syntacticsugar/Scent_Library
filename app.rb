@@ -48,7 +48,7 @@ get '/' do
       end
     end
   else
-    @juices = Juice.all(:order => [ :created_at.desc ])
+    @juices = Juice.all(:order => [ :created_at.desc ], :limit => 20) # .take 20 or .first 20 works, also
   end
 
   slim :index
