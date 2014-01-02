@@ -48,7 +48,7 @@ get '/' do
       end
     end
   else
-    Juice.all(:order => [ :brand.asc, :name.asc ])
+    @juices = Juice.all(:order => [ :created_at.desc ])
   end
 
   slim :index
