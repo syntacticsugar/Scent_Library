@@ -1,5 +1,4 @@
-//- if logged_in?
-- if true
+- if logged_in?
   form[action="/juice/#{@juice.id}" method="post"]
     input[type="text" name="brand" id="brand" value=@juice.brand]
     input[type="text" name="name" id="name" value=@juice.name]
