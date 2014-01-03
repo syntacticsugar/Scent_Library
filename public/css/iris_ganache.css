@@ -149,7 +149,7 @@ input[type=text]{
 }
 
 .flasks a:link,
-.flasks a:visited{
+.flasks a:visited {
   line-height: 1.4;
   text-decoration: none;
   white-space: nowrap;
@@ -165,7 +165,7 @@ input[type=text]{
   border-radius: 5px;
 }
 .flasks a:focus,
-.flasks a:hover{
+.flasks a:hover {
   color: #9d0d09;
   text-shadow: 0 1px 1px #fff;
   background: #fafaf5;
@@ -175,7 +175,8 @@ input[type=text]{
   border-bottom: 1px solid #bdbdb9;
   border-left: 1px solid #fff;
 }
-.flasks a:active{
+
+.flasks a:active {
   background: #e4e4e0;
   text-shadow: 0 1px 1px #fff;
   border-top: 1px solid #9d9d99;
@@ -199,3 +200,8 @@ img.avatar_small {
   padding-left: 8px;
   padding-right: 8px;
 }
+
+h3 { color: #89941a;
+     font-size: 18px; }
+
+.issue_queue { color: black; }
