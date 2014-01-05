@@ -5,23 +5,16 @@
 
     input[type="hidden" name="_method" value="put"]
     input.button[type="submit" value="update"]
-  a[href="javascript:updateJuice(#{@juice.id},'wished_for',true)"] add to wishlist
+
+  input[type="checkbox" checked=@assoc.wished_for? OnClick="updateJuice(#{@juice.id},'wished_for',this)"] add to wishlist
   br
-  a[href="javascript:updateJuice(#{@juice.id},'owned',true)"] add to ownlist
+  input[type="checkbox" checked=@assoc.owned? OnClick="updateJuice(#{@juice.id},'owned',this)"] add to ownlist
   br
-  a[href="javascript:updateJuice(#{@juice.id},'to_buy',true)"] add to watchlist
+  input[type="checkbox" checked=@assoc.to_buy? OnClick="updateJuice(#{@juice.id},'to_buy',this)"] add to watchlist
   br
+
   form.juice-type[action="/person_juice" method="post"]
-    input[type="checkbox" name="owned" checked=(@assoc.owned? ? "checked" : nil)] own &nbsp;&nbsp; &nbsp;&nbsp;
-    input.margin-right-15[type="checkbox" name="wished_for" checked=(@assoc.wished_for? ? "checked" : nil)]add to wishlist  &nbsp;&nbsp;&nbsp;&nbsp;
-    input.margin-right-15[type="checkbox" name="to_buy" checked=(@assoc.to_buy? ? "checked" : nil)]add to watchlist &nbsp;&nbsp;
-    br
     textarea.juice-description[placeholder="notes" name="notes"] #{@assoc.notes}
-    //|  Rating: 
-    //select[name="rating"]
-    //  option[value="unset" name="rating" selected=(@assoc.rating.nil? ? "selected" : nil)] Unset
-    //  - PersonJuice::RATING_RANGE.each do |i|
-    //    option[value="#{i}" name="rating" selected=(@assoc.rating == i ? "selected" : nil)]= i
 
     input[type="hidden" name="juice_id" value=@juice.id]
     input[type="hidden" name="_method" value="put"]
@@ -30,6 +23,7 @@
 
     br
     br
+
     | or, permanently 
     a[href="/juice/#{@juice.id}/delete"] delete
     |  this item.

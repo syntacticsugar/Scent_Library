@@ -57,12 +57,14 @@ function sortByFormula(a, b) {
 
 //$(".testclick").click(sortFlasksByHouse);
 
-function updateJuice(juiceID,field,value) {
+function updateJuice(juiceID,field,checkbox) {
+  value = (checkbox.checked ? 1 : 0);
+
   $.ajax({
-  // following line "/person_juice" followed by ? to signify parameters are following
-  // "/person_juice?juice_id=14&wished_for=true"
-  url: "/person_juice?juice_id=" + juiceID + "&" + field + "=" + value,
-  type: "PUT",
+    // following line "/person_juice" followed by ? to signify parameters are following
+    // "/person_juice?juice_id=14&wished_for=true"
+    url: "/person_juice?juice_id=" + juiceID + "&" + field + "=" + value,
+    type: "PUT",
   }).done(function() { alert("Added to " + field  + ".") });
 }
 
