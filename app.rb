@@ -71,8 +71,8 @@ end
 
 post '/juice/create' do
   list_type = params[:list_type]
-  puts request.inspect
-  puts session.inspect
+  puts "hey, your request is: " + request.inspect
+  puts "hi, your session is: " + session.inspect
   if not logged_in?
     status 401
   else
