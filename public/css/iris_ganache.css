@@ -48,21 +48,37 @@ ul.settings li {
 }
 
 ul.top-nav {
+  display: inline-block;
+  margin: 0;
   margin-bottom: 20px;
+  padding: 0.6em;
+  padding-left: 0.8em;
+  background: rgba(192,192,192,0.4);
 }
 
 ul.top-nav li {
+  background-color: rgba(237,237,237,0.6);
+  border-radius: 8px;
   text-transform: uppercase;
+  border-bottom: 1px solid rgba(109,70,22,0.3);
   font-size: 14px;
   display:inline;
   margin: 0 10px 0 0;
-  padding: 4px;
+  padding: 4px 0 4px 4px;
 }
 
 ul.top-nav li:hover {
-  background: #ededed;
+  background-color: rgba(237,237,242,1);
+  border-bottom: 1px solid rgba(109,70,14,0.3);
   color: #9da30b; /**green**/
   text-decoration: none;
+}
+
+ul.top-nav li:active {
+  background-color: rgba(212,212,212,1);
+  border-bottom: 1px solid rgba(109,70,7,0.3);
+  position: relative;
+  top: 2px;
 }
 
 ul.sort-menu {
