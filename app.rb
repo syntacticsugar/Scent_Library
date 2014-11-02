@@ -99,7 +99,7 @@ get '/user' do
     # The following line just tests to see that it's working.
     #   If you've logged in your first user, '/' should load: "1 ... 1";
     #   You can then remove the following line, start using view templates, etc.
-    current_user.id.to_s + " ... " + session[:user_id].to_s 
+    current_user.id.to_s + " ... blah blah blah " + session[:user_id].to_s 
   else
     'Greetings. <a href="/sign_in">Sign in with Twitter</a>'
   end
