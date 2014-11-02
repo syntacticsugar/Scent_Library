@@ -82,7 +82,7 @@ post '/juice/create' do
     if juice.save
       status 201
     else
-      status 412
+      puts request.inspect
     end
   end
 
