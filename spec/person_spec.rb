@@ -1,8 +1,4 @@
-require_relative "spec_helper.rb"
-
 describe Person do
-  let(:app) { Sinatra::Application }
-
   pending "create tests"
 
   describe "follow another person" do

@@ -1,7 +1,4 @@
-require_relative "spec_helper.rb"
-
 describe Juice do
-  let(:app) { Sinatra::Application }
   let(:create_params) { { name: "test name", brand: "test brand" } }
 
   describe "GET /juice/:id" do
@@ -27,7 +24,7 @@ describe Juice do
       expect(last_response.status).to eq 401
     end
 
-     it "should create perfume if logged in" do
+    it "should create perfume if logged in" do
       # TODO: Log in.
       post '/juice/create', create_params
       expect(last_response.status).to eq 401
@@ -35,6 +32,7 @@ describe Juice do
       juice = Juice.first(name: create_params[:name])
       expect(juice).not_to be_nil
       expect(juice.brand.name).to eq create_params[:brand]
+    end
   end
 
   describe "PUT juice/:id" do

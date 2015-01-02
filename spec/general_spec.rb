@@ -1,13 +1,30 @@
-require_relative "spec_helper.rb"
-
 describe "General" do
-  let(:app) { Sinatra::Application }
-
   describe "/" do
     it "should serve the root page" do
       get '/'
       expect(last_response).to be_ok
       expect(last_response.body).to include "Sign in securely via"
+      # TODO: check for something only on this page.
+    end
+  end
+
+  describe "login" do
+    before(:each) { visit "/" }
+
+    describe "facebook" do
+      it "should log you in" do
+        click_link "Facebook"
+        pending "complete test"
+        expect(true).to be_false
+      end
+    end
+
+    describe "twitter" do
+      it "should log you in" do
+        click_link "Twitter"
+        pending "complete test"
+        expect(true).to be_false
+      end
     end
   end
 

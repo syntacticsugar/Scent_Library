@@ -1,14 +1,10 @@
+require 'bundler'
+
+require "sinatra"
 require 'dotenv'
 Dotenv.load
-
-require 'sinatra'
-require 'slim'
-require 'omniauth'
-require 'omniauth-twitter'
-require 'omniauth-github'
-require 'omniauth-facebook'
-
-require 'pry' if development?
+Bundler.require :default, Sinatra::Application.environment
+set :root, File.dirname(__FILE__)
 
 require_relative 'keys.rb'
 require_relative 'model.rb'

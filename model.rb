@@ -1,6 +1,3 @@
-require 'data_mapper'
-require 'dm-timestamps'
-
 if production?
   DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_COPPER_URL']
 elsif development?
