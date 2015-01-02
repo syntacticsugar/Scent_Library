@@ -20,3 +20,10 @@ group :development do
   gem 'shotgun'
   gem 'dm-sqlite-adapter'
 end
+
+group :test do
+  gem 'rspec'
+  gem 'rack-test'
+  gem 'simplecov'
+  gem 'launchy'
+end
