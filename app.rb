@@ -7,7 +7,8 @@ require 'omniauth'
 require 'omniauth-twitter'
 require 'omniauth-github'
 require 'omniauth-facebook'
-require 'pry'
+
+require 'pry' if development?
 
 require_relative 'keys.rb'
 require_relative 'model.rb'
@@ -54,7 +55,7 @@ get '/' do
   slim :index
 end
 
-# any of the following routes should work to sign the user in: 
+# any of the following routes should work to sign the user in:
 #   /sign_up, /signup, /sign_in, /signin, /log_in, /login
 ["/sign_in/?", "/signin/?", "/log_in/?", "/login/?", "/sign_up/?", "/signup/?"].each do |path|
   get path do
@@ -74,7 +75,7 @@ post '/juice/create' do
   puts "hey, your request is: " + request.inspect
   puts "hi, your session is: " + session.inspect
   if not logged_in?
-    status 401
+    halt 401
   else
     juice = Juice.new(:name =>  params[:name],
                       :brand => params[:brand])
@@ -99,7 +100,7 @@ get '/user' do
     # The following line just tests to see that it's working.
     #   If you've logged in your first user, '/' should load: "1 ... 1";
     #   You can then remove the following line, start using view templates, etc.
-    current_user.id.to_s + " ... blah blah blah " + session[:user_id].to_s 
+    current_user.id.to_s + " ... blah blah blah " + session[:user_id].to_s
   else
     'Greetings. <a href="/sign_in">Sign in with Twitter</a>'
   end
@@ -220,6 +221,23 @@ end
 not_found do
   halt 404, "whoa there big thunder! page not found, sorrrrri."
 end
+
+if development?
+  error do
+    "Error is: " + params['captures'].first.inspect
+  end
+end
+
+=begin
+# Get list of currently managed routes.
+%w[GET PUT POST].each do |fetch|
+  puts
+  puts "Routes for #{fetch}"
+  Sinatra::Application.routes[fetch].each do |route|
+    p route.first
+  end
+end
+=end
 
 # NEXT
 # -"updated" once user has clicked 'updated'

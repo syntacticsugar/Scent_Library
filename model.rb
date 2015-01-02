@@ -1,7 +1,15 @@
 require 'data_mapper'
 require 'dm-timestamps'
 
-DataMapper.setup(:default, ENV['HEROKU_POSTGRESQL_COPPER_URL'] || "sqlite3://#{Dir.pwd}/development.db")
+if production?
+  DataMapper.setup :default, ENV['HEROKU_POSTGRESQL_COPPER_URL']
+elsif development?
+  DataMapper.setup :default, "sqlite3://#{Dir.pwd}/development.db"
+elsif test?
+  DataMapper.setup :default, "sqlite3::memory:"
+else
+  raise RuntimeError, "Unexpected envorinment"
+end
 
 
 class Juice
