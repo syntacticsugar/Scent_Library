@@ -4,7 +4,7 @@ describe "General" do
   let(:app) { Sinatra::Application }
 
   describe "/" do
-    it "should work" do
+    it "should serve the root page" do
       get '/'
       expect(last_response).to be_ok
       expect(last_response.body).to include "Sign in securely via"
@@ -19,6 +19,11 @@ describe "General" do
   end
 
   describe "GET /faq" do
-    pending "create test"
+    it "should serve the FAQ page" do
+      get "/faq"
+      expect(last_response).to be_ok
+      expect(last_response.body).to include "Sign in securely via"
+      expect(last_response.body).to include "Issue Queue"
+    end
   end
 end

@@ -222,12 +222,6 @@ not_found do
   halt 404, "whoa there big thunder! page not found, sorrrrri."
 end
 
-if development?
-  error do
-    "Error is: " + params['captures'].first.inspect
-  end
-end
-
 =begin
 # Get list of currently managed routes.
 %w[GET PUT POST].each do |fetch|
