@@ -68,8 +68,7 @@ end
 
 post '/juice/create' do
   list_type = params[:list_type]
-  puts "hey, your request is: " + request.inspect
-  puts "hi, your session is: " + session.inspect
+
   if not logged_in?
     halt 401
   else
@@ -100,12 +99,13 @@ get '/user' do
   else
     'Greetings. <a href="/sign_in">Sign in with Twitter</a>'
   end
-
 end
 
 
 get '/auth/:name/:callback' do # from charlie park's "omniauth for sinatra" repo
   auth = request.env["omniauth.auth"]
+
+  halt 400 unless %w[facebook twitter].include? auth["provider"]
 
   user = Person.first_or_create(:uid => auth["uid"])
    # Other info might have changed since we last authorised.
@@ -141,6 +141,8 @@ end
 # View a perfume
 get '/juice/:id' do
   @juice = Juice.get(params[:id])
+  halt 400 if @juice.nil?
+
   @assoc = if logged_in?
              PersonJuice.get(current_user.id, @juice.id)
            else
@@ -158,7 +160,7 @@ end
 # Update a perfume.
 put '/juice/:id' do
   juice = Juice.get(params[:id])
-  puts params
+  halt 400 if @juice.nil?
 
   juice.name = params[:name] if params[:name]
   juice.brand = params[:brand] if params[:brand]

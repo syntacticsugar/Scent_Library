@@ -6,14 +6,36 @@ Bundler.require :default, Sinatra::Application.environment
 
 require 'capybara/dsl'
 Capybara.app = Sinatra::Application
-
-#ENV['RACK_ENV'] = 'test'
-
 # Use proper web driver rather than rack to allow for JS (which is rife!).
 Capybara.default_driver = :selenium
 Capybara.javascript_driver = :selenium
 
-module Helper
+OmniAuth.config.test_mode = true
+
+module AuthHelper
+  DISPLAY_NAME = "Horatio Womblebeard"
+  USERNAME = "womble"
+  UID = "123456789"
+
+  def mock_auth(provider=:twitter)
+    auth_hash = {
+      provider: provider.to_s,
+      uid: UID,
+      info: {
+        name: USERNAME,
+        nickname: DISPLAY_NAME,
+        image: "image.png",
+      }
+    }
+    OmniAuth.config.mock_auth[provider.to_sym] = OmniAuth::AuthHash.new(auth_hash)
+  end
+
+  def mock_auth_invalid(provider=:twitter)
+    OmniAuth.config.mock_auth[provider.to_sym] = :invalid_credentials
+  end
+end
+
+module SinatraHelper
   def app
     Sinatra::Application
   end
@@ -26,8 +48,10 @@ end
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
-  #config.run_all_when_everything_filtered = true
-  #config.filter_run :focus
+  # Any test marked with 'focus: true' will be the only ones run,
+  # unless no tests are so marked, when it will run all tests.
+  config.run_all_when_everything_filtered = true
+  config.filter_run :focus
 
   # Run specs in random order to surface order dependencies. If you find an
   # order dependency and want to debug it, you can fix the order by providing
@@ -36,8 +60,9 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.include Rack::Test::Methods
-  config.include Helper
-  config.include Capybara
+  config.include SinatraHelper
+  config.include AuthHelper
+  config.include Capybara::DSL
 
   # Use color in STDOUT
   config.color = true
@@ -47,6 +72,19 @@ RSpec.configure do |config|
 
   # Use the specified formatter
   config.formatter = :documentation # :progress, :html, :textmate
+
+  config.before :each do
+    [:facebook, :twitter].each do |authorizer|
+      OmniAuth.config.mock_auth[authorizer] = nil
+    end
+
+    [Person, PersonJuice, Juice].each do |table|
+      table.all.destroy
+    end
+
+    #admin = Person.new name: "admin", uid: "987654321"
+    #admin.save
+  end
 end
 
 require 'simplecov'
